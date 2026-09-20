@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analog Waveguide — Manual of Operation</title>
+
+<style>
+/* ============================================================
+   FONTS
+   ============================================================ */
+@font-face{
+  font-family:"Work Sans";
+  src:url("assets/fonts/WorkSans-Regular.otf") format("opentype");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Work Sans";
+  src:url("assets/fonts/WorkSans-Italic.otf") format("opentype");
+  font-weight:400; font-style:italic; font-display:swap;
+}
+@font-face{
+  font-family:"Work Sans";
+  src:url("assets/fonts/WorkSans-Medium.otf") format("opentype");
+  font-weight:500; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Work Sans";
+  src:url("assets/fonts/WorkSans-SemiBold.otf") format("opentype");
+  font-weight:600; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Work Sans";
+  src:url("assets/fonts/WorkSans-SemiBoldItalic.otf") format("opentype");
+  font-weight:600; font-style:italic; font-display:swap;
+}
+@font-face{
+  font-family:"Work Sans";
+  src:url("assets/fonts/WorkSans-Bold.otf") format("opentype");
+  font-weight:700; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Audimat";
+  src:url("assets/fonts/audimat-chair.ttf") format("truetype");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --red:#FE6667;
+  --blue:#6766FE;
+  --yellow:#ECDD46;
+  --ink:#1c1b19;
+  --ink-soft:#514f4a;
+  --paper:#FBFAF7;
+  --panel:#232221;
+  --panel-2:#2e2c2a;
+  --line:#e7e3d9;
+  --line-strong:#d8d3c4;
+  --card:#ffffff;
+  --radius:10px;
+  --measure:38rem;
+  --sidebar-w:280px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:"Work Sans", sans-serif;
+  color:var(--ink);
+  background:var(--paper);
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+::selection{ background:var(--yellow); color:var(--ink); }
+
+a{ color:var(--blue); text-decoration-thickness:1.5px; text-underline-offset:2px; }
+a:hover{ color:var(--red); }
+
+img{ max-width:100%; display:block; }
+
+h1,h2,h3,h4{ font-family:"Work Sans", sans-serif; font-weight:600; line-height:1.2; margin:0 0 .6em; }
+
+p{ margin:0 0 1.1em; }
+p:last-child{ margin-bottom:0; }
+
+.measure{ max-width:var(--measure); }
+
+/* ============================================================
+   LAYOUT SHELL
+   ============================================================ */
+.shell{
+  display:grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  min-height:100vh;
+}
+
+/* ---------- Sidebar / TOC ---------- */
+.sidebar{
+  position:sticky; top:0; align-self:start;
+  height:100vh;
+  overflow-y:auto;
+  border-right:1px solid var(--line);
+  background:var(--paper);
+  padding:1.75rem 1.5rem 3rem;
+}
+.sidebar-brand{
+  display:flex; align-items:center; gap:.6rem;
+  margin-bottom:1.6rem;
+}
+.sidebar-brand img{ width:150px; height:auto; }
+
+.toc-search-hint{
+  font-size:.72rem; text-transform:uppercase; letter-spacing:.09em;
+  color:var(--ink-soft); font-weight:600; margin:1.6rem 0 .6rem;
+}
+nav.toc{ font-size:.90rem; }
+nav.toc ol{ list-style:none; margin:0; padding:0; }
+nav.toc > ol > li{ margin-bottom:.15rem; }
+nav.toc a{
+  color:var(--ink); text-decoration:none; display:block;
+  padding:.28rem .5rem; border-radius:6px;
+  border-left:2px solid transparent;
+}
+nav.toc a:hover{ background:#f1efe8; }
+nav.toc a.active{
+  color:var(--red); font-weight:600; border-left-color:var(--red);
+  background:#fff0ef;
+}
+nav.toc .chnum{
+  display:inline-block; width:1.4em; color:var(--ink-soft); font-variant-numeric:tabular-nums;
+}
+nav.toc ol ol{ margin-left:1.55rem; margin-top:.1rem; margin-bottom:.4rem; }
+nav.toc ol ol a{ font-size:.86rem; color:var(--ink-soft); padding:.18rem .5rem; }
+nav.toc ol ol a:hover{ color:var(--ink); }
+nav.toc ol ol a.active{ color:var(--red); }
+
+.sidebar-foot{
+  margin-top:2.2rem; padding-top:1.2rem; border-top:1px solid var(--line);
+  font-size:.78rem; color:var(--ink-soft);
+}
+
+.menu-toggle{ display:none; }
+
+/* ---------- Main column ---------- */
+main{ min-width:0; }
+
+.chapter{
+  padding:5.5rem clamp(1.5rem, 5vw, 5rem) 2rem;
+  border-bottom:1px solid var(--line);
+  scroll-margin-top:1rem;
+}
+.chapter:first-of-type{ padding-top:3rem; }
+
+.chapter-head{
+  display:flex; align-items:flex-start; gap:1.4rem;
+  margin-bottom:2.4rem;
+}
+.chapter-num{
+  font-family:"Audimat", sans-serif;
+  font-size:clamp(3.6rem, 9vw, 5.6rem);
+  line-height:.78;
+  color:var(--red);
+  flex:none;
+  user-select:none;
+}
+.chapter-titles{ padding-top:.5rem; }
+.chapter-kicker{
+  display:block; font-size:.78rem; font-weight:600; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--ink-soft); margin-bottom:.3rem;
+}
+.chapter h1{
+  font-size:clamp(1.7rem, 3.4vw, 2.5rem);
+  margin:0;
+}
+
+section.sub{ margin:2.6rem 0; scroll-margin-top:1.5rem; }
+section.sub h2{
+  font-size:1.35rem;
+  padding-bottom:.5rem;
+  border-bottom:2px solid var(--ink);
+  margin-bottom:1.1rem;
+}
+section.subsub{ margin:1.8rem 0; scroll-margin-top:1.5rem; }
+section.subsub h3{ font-size:1.08rem; color:var(--ink); }
+h4.mini{ font-size:.98rem; margin-bottom:.4rem; }
+
+.lead{
+  font-size:1.15rem;
+  color:var(--ink);
+  max-width:var(--measure);
+}
+
+/* paragraph-style term definitions (was \paragraph{...}) */
+.term{ margin:1.3rem 0; max-width:var(--measure); }
+.term dt{
+  font-weight:600; display:inline; color:var(--ink);
+}
+.term dt::after{ content:""; }
+.term dd{ display:inline; margin:0; }
+
+dl.terms{ margin:0; }
+dl.terms > div{ margin:1.3rem 0; max-width:var(--measure); }
+dl.terms dt{ font-weight:600; display:inline; }
+dl.terms dd{ display:inline; margin:0; }
+
+/* description list used in settings menus */
+dl.settings > div{ margin:1.4rem 0; max-width:var(--measure); }
+dl.settings dt{
+  font-family:"Work Sans"; font-weight:600; color:var(--ink);
+  margin-bottom:.25rem;
+}
+dl.settings dd{ margin:0; color:var(--ink); }
+
+ul, ol{ padding-left:1.3em; max-width:var(--measure); }
+li{ margin-bottom:.4em; }
+
+/* ============================================================
+   FIGURES
+   ============================================================ */
+figure{ margin:2rem 0; }
+figure img{
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+}
+figure.dark img{ background:var(--panel); }
+figcaption{
+  font-size:.86rem; color:var(--ink-soft); margin-top:.6rem;
+  max-width:var(--measure);
+}
+figcaption .fignum{ font-weight:600; color:var(--ink); }
+figure.panel-crop img{
+  background:#232221;
+  padding:0;
+}
+figure.wide{ max-width:640px; }
+figure.narrow{ max-width:420px; }
+.fig-row{
+  display:flex; gap:1.5rem; flex-wrap:wrap; margin:2rem 0;
+}
+.fig-row figure{ margin:0; flex:1 1 260px; }
+
+/* ============================================================
+   CALLOUT BOXES
+   ============================================================ */
+.box{
+  border:1px solid; border-radius:14px;
+  padding:1.3rem 1.5rem; margin:1.8rem 0;
+  max-width:var(--measure);
+  background:#fff;
+}
+.box > :last-child{ margin-bottom:0; }
+.box-title{
+  font-weight:600; font-style:italic; margin-bottom:.6rem;
+  display:flex; align-items:center; gap:.5rem;
+}
+.box.tip{ border-color:var(--blue); }
+.box.tip .box-title{ color:var(--blue); }
+.box.prep{ border-color:var(--blue); }
+.box.prep .box-title{ color:var(--blue); }
+.box.calibrate{ border-color:var(--red); }
+.box.calibrate .box-title{ color:var(--red); }
+.box ol, .box ul{ margin-bottom:0; padding-left:1.2em; }
+.box ol li, .box ul li{ margin-bottom:.5em; }
+.box ol li:last-child, .box ul li:last-child{ margin-bottom:0; }
+
+.stepblocks{ display:grid; gap:1rem; margin:1.8rem 0; max-width:var(--measure); }
+
+/* breadcrumb / graybox for menu paths */
+.menupath{
+  display:inline-flex; align-items:center; gap:.4em;
+  background:#eeece4; border-radius:6px; padding:.15em .6em;
+  font-family:ui-monospace, "SF Mono", Menlo, monospace;
+  font-size:.88em; color:var(--ink);
+}
+
+/* device menu mockup */
+.device-menu{
+  max-width:320px; margin:1.8rem 0;
+  background:var(--panel); color:#f2f0ea; border-radius:8px;
+  overflow:hidden; border:1px solid #000;
+  font-family:ui-monospace, "SF Mono", Menlo, monospace;
+  font-size:.92rem;
+}
+.device-menu .dm-title{
+  padding:.7rem 1rem; font-weight:700; letter-spacing:.03em;
+  border-bottom:1px solid #454340;
+}
+.device-menu ul{ list-style:none; margin:0; padding:0; }
+.device-menu li{
+  padding:.55rem 1rem; border-top:1px solid #3a3836; margin:0;
+}
+.device-menu li.sel{ background:#3a3836; }
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+.tablewrap{ overflow-x:auto; margin:1.8rem 0; max-width:var(--measure); }
+table{
+  border-collapse:collapse; width:100%; font-size:.94rem;
+}
+table caption{ text-align:left; font-size:.85rem; color:var(--ink-soft); margin-bottom:.5rem; }
+th, td{ text-align:left; padding:.55rem .8rem; border-bottom:1px solid var(--line); }
+thead th{
+  border-bottom:2px solid var(--ink); font-weight:600;
+}
+tr:last-child td{ border-bottom:none; }
+td.num, th.num{ text-align:left; font-variant-numeric:tabular-nums; }
+
+/* ============================================================
+   EQUATIONS
+   ============================================================ */
+.equation{
+  margin:1.8rem 0; padding:1.3rem 1.6rem;
+  background:#fff; border:1px solid var(--line-strong); border-radius:10px;
+  max-width:var(--measure); overflow-x:auto;
+}
+.equation .katex-display{ margin:0; }
+.eq-caption{ font-size:.85rem; color:var(--ink-soft); margin-top:.5rem; }
+
+/* quadrant diagram (was tabular equ) */
+.quadrant-table{
+  display:inline-grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr;
+  border:2px solid var(--ink); margin:1.6rem 0; font-weight:600;
+}
+.quadrant-table div{
+  padding:1.1rem 2.2rem; text-align:center;
+  border:1px solid var(--line-strong);
+}
+
+/* ============================================================
+   MISC
+   ============================================================ */
+kbd, code{
+  font-family:ui-monospace, "SF Mono", Menlo, monospace; font-size:.92em;
+  background:#f1efe8; padding:.1em .4em; border-radius:4px;
+}
+hr.rule{ border:none; border-top:1px solid var(--line); margin:2.5rem 0; }
+
+sup.fnref a{
+  text-decoration:none; color:var(--red); font-weight:600; margin-left:1px;
+}
+.notes-list{ max-width:var(--measure); font-size:.92rem; color:var(--ink-soft); }
+.notes-list li{ margin-bottom:.8em; }
+.notes-list a.back{ margin-left:.4em; }
+
+.bib-list{ list-style:none; padding:0; max-width:var(--measure); }
+.bib-list li{ margin-bottom:1.1em; padding-left:2.2em; text-indent:-2.2em; }
+
+.hero{
+  padding:6.5rem clamp(1.5rem,5vw,5rem) 4rem;
+  border-bottom:1px solid var(--line);
+  position:relative;
+  overflow:hidden;
+}
+.hero-eyebrow{
+  font-size:.8rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--red); margin-bottom:1rem;
+}
+.hero h1{
+  font-size:clamp(2.4rem, 6vw, 4.2rem);
+  letter-spacing:-.01em;
+  margin-bottom:.3rem;
+}
+.hero .subtitle{
+  font-family:"Audimat", sans-serif;
+  font-size:clamp(1.3rem, 3vw, 1.9rem);
+  color:var(--ink-soft);
+  margin-bottom:1.6rem;
+}
+.hero-meta{
+  display:flex; gap:1.5rem; flex-wrap:wrap; font-size:.88rem; color:var(--ink-soft);
+  border-top:1px solid var(--line); padding-top:1.2rem; margin-top:1.8rem; max-width:640px;
+}
+.hero-figure{
+  margin-top:2.6rem; max-width:520px;
+}
+.hero-figure img{ border-radius:14px; }
+
+footer.colophon{
+  padding:3.5rem clamp(1.5rem,5vw,5rem) 5rem;
+}
+footer.colophon h2{ font-size:1.3rem; }
+
+@media (max-width: 900px){
+  .shell{ grid-template-columns: 1fr; }
+  .sidebar{
+    position:fixed; z-index:40; inset:0 20% 0 0; width:auto;
+    transform:translateX(-101%);
+    transition:transform .25s ease;
+    box-shadow:10px 0 30px rgba(0,0,0,.15);
+  }
+  .sidebar.open{ transform:translateX(0); }
+  .menu-toggle{
+    display:flex; position:fixed; z-index:50; top:1rem; left:1rem;
+    align-items:center; gap:.5rem;
+    background:var(--ink); color:#fff; border:none; border-radius:30px;
+    padding:.6rem 1rem; font-family:"Work Sans"; font-weight:600; font-size:.85rem;
+  }
+  .chapter{ padding:5rem 1.25rem 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  .sidebar{ transition:none; }
+}
+
+/* focus visibility */
+a:focus-visible, button:focus-visible{
+  outline:2px solid var(--blue); outline-offset:2px;
+}
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="sidebar">☰ Contents</button>
+
+<div class="shell">
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <img src="assets/img/logo.png" alt="chair.audio">
+  </div>
+  <nav class="toc" id="toc" aria-label="Table of contents">
+    <ol>
+      <li><a href="#top">Hero</a></li>
+      <li><a href="#preface">Preface</a></li>
+      <li>
+        <a href="#ch1"><span class="chnum">1</span>Module Overview</a>
+        <ol>
+          <li><a href="#what-is-a-waveguide">What is a Waveguide?</a></li>
+          <li><a href="#the-maths">The maths which defines the sound</a></li>
+          <li><a href="#tech-spec">Technical specification</a></li>
+          <li><a href="#signal-flow">Signal flow diagram</a></li>
+        </ol>
+      </li>
+      <li>
+        <a href="#ch2"><span class="chnum">2</span>Individual Functions</a>
+        <ol>
+          <li><a href="#pitch-section">Pitch Section</a></li>
+          <li><a href="#lowpass-section">Lowpass Section</a></li>
+          <li><a href="#feedback-section">Feedback Section</a></li>
+          <li><a href="#io-section">Input and Output Section</a></li>
+          <li><a href="#rotation-section">Rotation Section</a></li>
+          <li><a href="#link-switches">Link Switches</a></li>
+        </ol>
+      </li>
+      <li>
+        <a href="#ch3"><span class="chnum">3</span>Display and Level Meters</a>
+        <ol>
+          <li><a href="#display">Display</a></li>
+          <li><a href="#clipping-indicators">Clipping Indicators</a></li>
+        </ol>
+      </li>
+      <li>
+        <a href="#ch4"><span class="chnum">4</span>Patch Examples</a>
+        <ol>
+          <li><a href="#excitation">Recommendations for excitation</a></li>
+          <li><a href="#duophonic">Duophonic String &amp; Drum</a></li>
+          <li><a href="#pluck-position">String with Pluck Position</a></li>
+          <li><a href="#trumpet">Natural Trumpet/Brass</a></li>
+          <li><a href="#handpan">Handpan/Steel Drum</a></li>
+          <li><a href="#unfolded-string">Unfolded String Model</a></li>
+        </ol>
+      </li>
+      <li>
+        <a href="#ch5"><span class="chnum">5</span>Menu System</a>
+        <ol>
+          <li><a href="#settings">Settings</a></li>
+        </ol>
+      </li>
+      <li>
+        <a href="#ch6"><span class="chnum">6</span>Calibration Procedures</a>
+        <ol>
+          <li><a href="#bbd-calibration">BBD Calibration</a></li>
+          <li><a href="#rotation-channel-calibration">Rotation &amp; Channel Calibration</a></li>
+        </ol>
+      </li>
+      <li>
+        <a href="#ch7"><span class="chnum">7</span>Firmware Update</a>
+        <ol>
+          <li><a href="#firmware-version">Firmware Version</a></li>
+          <li><a href="#firmware-update-methods">Update methods</a></li>
+          <li><a href="#troubleshooting">Troubleshooting</a></li>
+        </ol>
+      </li>
+      <li><a href="#ch8"><span class="chnum">8</span>Cleaning &amp; Maintenance</a></li>
+      <li><a href="#ch9"><span class="chnum">9</span>Firmware Version History</a></li>
+      <li><a href="#manufacturer"><span class="chnum">—</span>Manufacturer</a></li>
+    </ol>
+  </nav>
+  <div class="sidebar-foot">
+    Analog Waveguide — Manual of Operation<br>
+    Firmware 1.2.3 · Hardware Rev. 3.2
+  </div>
+</aside>
+
+<main id="top">
+
+<section class="hero">
+  <div class="hero-eyebrow">Manual of Operation</div>
+  <h1>Analog Waveguide</h1>
+  <div class="subtitle">Sound in motion</div>
+  <p class="lead">You are probably reading this because you have bought our Analog Waveguide or may be considering doing so. In any case: congratulations on this excellent choice, you have our deepest gratitude for your trust and support.</p>
+  <div class="hero-meta">
+    <span>Compatible with firmware version 1.2.3</span>
+    <span>Hardware revision 3.2 (production)</span>
+  </div>
+  <figure class="hero-figure">
+    <img src="assets/img/illustration.png" alt="Front view of the Analog Waveguide controls, showing the X and Y delay-line sections and the central rotation dial.">
+    <figcaption><span class="fignum">Fig. 1.1</span> — Front view of the Analog Waveguide controls.</figcaption>
+  </figure>
+</section>
+
+<section class="chapter" id="preface">
+  <div class="chapter-head">
+    <div class="chapter-titles">
+      <span class="chapter-kicker">Before you begin</span>
+      <h1>Preface</h1>
+    </div>
+  </div>
+
+  <p class="lead">This manual is purposely technical to satisfy those of you who desire to <em>thoroughly</em> understand the conceptual background and electro-physical principles of this resonator. It is meant to empower those who want to master this instrument in its entirety and know all details of every control and parameter.</p>
+
+  <p>That said, please do not be deterred or discouraged by the complexity of this manual — luckily there is absolutely no necessity to internalize the underlying math to be able to make great sounds, because the Analog Waveguide is a very <em>playful</em> device, which lets you explore sounds intuitively and will give you joy doing so, even if you have not absorbed every concept in the manual. For further accessibility, we have compiled a playlist of user videos for the Analog Waveguide. You can find the playlist on our YouTube channel.</p>
+
+  <p>There are excellent performative and instructional videos introducing you to various synthesis techniques with the Analog Waveguide, some of which are taken from this very manual. We're grateful to have many gifted instructors and performers amongst our customers. Thank you, you are indispensable!</p>
+
+  <p>Now grab a tea and start reading — or just skip it, and start to experience the exciting sonic worlds of the Analog Waveguide on your own terms.</p>
+
+  <p><a href="https://youtube.com/playlist?list=PLLEWxqwf5WxF9qJTHwcDhvVXeCC0jIerf">Analog Waveguide user content — YouTube playlist ↗</a></p>
+</section>
+
+<section class="chapter" id="ch1">
+  <div class="chapter-head">
+    <div class="chapter-num">1</div>
+    <div class="chapter-titles">
+      <span class="chapter-kicker">Chapter 1</span>
+      <h1>Module Overview</h1>
+    </div>
+  </div>
+
+  <p class="lead">The Analog Waveguide is a resonator, the fundamental component of all physical modeling techniques. It transforms an external, unpitched excitation audio signal, such as a click, a burst of noise, or any sound captured by a contact microphone, into a rich, pitched sound.</p>
+
+  <p>The Analog Waveguide can imitate various real-world instruments including, but not limited to: a drum skin, a string, a hand pan, a woodblock, or a sheet of metal that vibrates in response to an external signal.</p>
+
+  <p>This Eurorack module is arguably the first analog resonator capable of producing rich inharmonic resonances with dense spectra. It effortlessly allows hundreds of partials to resonate in harmony with a continuous audio input signal. It is conceived to explore analog physical modeling techniques and adds an extra bit of analog warmth, tiny fluctuations and the lush sounding saturation of true analog delays, VCAs and filters.</p>
+
+  <section class="sub" id="what-is-a-waveguide">
+    <h2>1.1 &nbsp; What is a Waveguide?</h2>
+    <p>In physical modeling sound synthesis, a waveguide is a set of building blocks to simulate how waves propagate through a physical medium — typically air columns, strings, or acoustic tubes. A waveguide models the motion of waves by using:</p>
+    <ul>
+      <li><strong>Delay lines</strong> → to simulate wave travel time</li>
+      <li><strong>Filters</strong> → to simulate frequency-dependent losses, dispersion, and reflections</li>
+      <li><strong>Scattering junctions</strong> → to simulate branching or impedance mismatches (e.g., tone holes, string bridges)</li>
+    </ul>
+    <p>In essence, a waveguide is the equivalent of a vibrating physical object, broken down into simple propagation and reflection components. Waveguides can model different acoustic instruments very well, e.g.:</p>
+    <ul>
+      <li><strong>String instruments:</strong> a string is modeled as two delay lines carrying waves in opposite directions; reflections occur at the bridge and nut.</li>
+      <li><strong>Wind instruments:</strong> the bore of a flute or clarinet is a tube-like waveguide; scattering models tone holes, the reed, mouthpiece geometry, etc.</li>
+      <li><strong>Percussion:</strong> waveguides can approximate bars, plates, and membranes.</li>
+    </ul>
+  </section>
+
+  <section class="sub" id="the-maths">
+    <h2>1.2 &nbsp; The maths which defines the sound</h2>
+    <p>The module has two channels. This dual design can be understood as a stereo pair of signals: left and right. The two channels can also be mapped to x- and y-axes in a two-dimensional Cartesian space. This is what is displayed on the module's screen.</p>
+    <p>The left channel is oscillating on the x-axis, while the right channel is oscillating on the y-axis.</p>
+    <p>This way of viewing signal pairs is similar to that used in a stereo phase scope / analyzer used by the recording and broadcasting industries.<sup class="fnref" id="fnref-1"><a href="#fn-1">1</a></sup></p>
+    <p>If the input is a monophonic signal (X and Y are identical), the image on the X/Y view is a signal oscillating in a diagonal line from the top right quadrant (+x, +y, <em>I</em>) to the bottom left quadrant (−y, −x, <em>III</em>). If the left channel is shifted 180° in phase to the right channel, the signal will oscillate from the top left quadrant (−x, +y, <em>II</em>) to the bottom right quadrant (+x, −y, <em>IV</em>).<sup class="fnref" id="fnref-2"><a href="#fn-2">2</a></sup></p>
+
+    <div class="quadrant-table" role="img" aria-label="The four quadrants of a Cartesian plane: II top-left, I top-right, III bottom-left, IV bottom-right.">
+      <div>II</div><div>I</div>
+      <div>III</div><div>IV</div>
+    </div>
+
+    <figure class="narrow dark panel-crop">
+      <img src="assets/img/display.png" alt="Analog Waveguide display with quadrants and axes." style="background:#e9e6dc;">
+      <figcaption><span class="fignum">Fig. 1.2</span> — Analog Waveguide display with quadrants and axes.</figcaption>
+    </figure>
+
+    <p>The Analog Waveguide has the right (Y) channel pre-patched to the left (X) channel internally,<sup class="fnref" id="fnref-3"><a href="#fn-3">3</a></sup> so if you have nothing plugged into the right input, the left input is used on both channels. If you intentionally want the right input to be mute you can put a dangling cable into the right input or simply turn the gain knob all the way down.</p>
+
+    <p>Each side of the Analog Waveguide — X and Y — is a <em>feedback-delay network</em>. The input signal is fed into a delay, a low-pass filter, and then back into the delay with some attenuation.</p>
+
+    <p>Now the rotation is simple if you understood everything so far. Every time we feed the delay output back to the input for the resonating effect, we can rotate this point on the two-dimensional space, representing the stereo signal, around the origin point of the coordinate system (0,0) by a given angle. At an angle of 0° the two feedback delay networks operate independently of each other — there is no cross-mix between them.</p>
+
+    <p>Since the tail of the resonance gets rotated every time it is fed back into the delay line, the rotation also represents the speed with which the timbre of the tail resonance is changing. This velocity is highest at 90° and 270°, while at 180° we get a flip-flopping reflection.</p>
+
+    <p>Mathematically, and also electrically, the rotation is a multiplication, subtraction, and addition with sine and cosine of the angle. If $\theta$<sup class="fnref" id="fnref-4"><a href="#fn-4">4</a></sup> is the angle of rotation, $x,y$ the current position, and $x',y'$ the new position in the Cartesian space, then:</p>
+
+    <div class="equation">
+      $$x' = x \cos\theta - y \sin\theta$$
+      $$y' = x \sin\theta + y \cos\theta$$
+    </div>
+
+    <p>The output of the module is the left and right (or X and Y) component of the signal. In other words: the two-dimensional signal gets projected back onto the two axes. It's basically a specific way of cross-mixing the two channels.</p>
+
+    <p>This rotation mix between two feedback-delay networks has two notable effects:</p>
+    <ol>
+      <li>The sum is always power preserving. This is an essential property for physical modeling synthesis and resonators in general, because then your resonating sound will not be at risk of exploding into uncontrollable feedback or dying into nothingness.</li>
+      <li>The spectral spread of the overtones gets bent inharmonically. A single feedback delay (Karplus-Strong synthesis) always sounds like a one-dimensional resonator: a string. Our Analog Waveguide can do string sounds (with the rotation angle at 0°), but additionally can sound like two-dimensional resonators — gongs, plates, cymbals, membranes, drums, handpans, even trumpets — due to the scattering reflections in a plane which the rotation introduces.</li>
+    </ol>
+    <p>We published a paper providing a deeper explanation of why exactly this inharmonic distortion happens: <a href="#bib-wegener">Wegener &amp; Neupert, 2024</a>.</p>
+  </section>
+
+  <section class="sub" id="tech-spec">
+    <h2>1.3 &nbsp; Technical specification</h2>
+
+    <section class="subsub" id="dimensions">
+      <h3>Dimensions</h3>
+      <div class="tablewrap">
+        <table>
+          <tbody>
+            <tr><th>Width</th><td>24 HP</td></tr>
+            <tr><th>Depth in rack (under panel)</th><td>34 mm</td></tr>
+            <tr><th>PCB height in rack</th><td>112 mm (some racks may be smaller!)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="subsub" id="current-draw">
+      <h3>Current draw per Eurorack rail</h3>
+      <p>10- to 16-pin Eurorack power IDC connector, cable is included.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Rail</th><th>Current</th></tr></thead>
+          <tbody>
+            <tr><td>+12 V</td><td>200 mA</td></tr>
+            <tr><td>−12 V</td><td>131 mA</td></tr>
+            <tr><td>+5 V</td><td>Not connected</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="subsub" id="io-spec">
+      <h3>Input / output specification</h3>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Port</th><th>Range</th></tr></thead>
+          <tbody>
+            <tr><td>1V/Oct</td><td>−1.5 V to 5.5 V</td></tr>
+            <tr><td>FM</td><td>−8 V to 8 V</td></tr>
+            <tr><td>Lowpass</td><td>−8 V to 8 V</td></tr>
+            <tr><td>Feedback</td><td>−8 V to 8 V</td></tr>
+            <tr><td>Rotation</td><td>−8 V to 8 V</td></tr>
+            <tr><td>Audio In</td><td>−8 V to 8 V</td></tr>
+            <tr><td>Audio Out</td><td>−8 V to 8 V</td></tr>
+            <tr><td>USB-C</td><td>For firmware update. DFU mode device ID 0483:df11</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </section>
+
+  <section class="sub" id="signal-flow">
+    <h2>1.4 &nbsp; Signal flow diagram</h2>
+    <figure class="wide dark panel-crop">
+      <img src="assets/img/blockdiagram.png" alt="Simplified signal flow block diagram of the two channels, each with invert, delay, LPF, VCA, send/return, dry/wet, feeding into a shared rotation block." style="background:#fff;">
+      <figcaption><span class="fignum">Fig. 1.3</span> — Simplified signal flow block diagram.</figcaption>
+    </figure>
+
+    <p>The Analog Waveguide is designed to be flexible and represent multiple physical or pseudo-physical<sup class="fnref" id="fnref-5"><a href="#fn-5">5</a></sup> acoustic models. It consists of several blocks that can be partially reconfigured to realize different physical models or acoustic functions.</p>
+
+    <p>The diagram above shows the simplified form of the signal flow block diagram with the base functionality (CV sources, normalled connections and knobs omitted). It features:</p>
+    <ul>
+      <li>Two delay lines → to simulate wave travel time,</li>
+      <li>Two lowpass filters → to simulate frequency-dependent dissipation,</li>
+      <li>A rotation scattering junction → to simulate branching and reflections of the acoustic waves,</li>
+      <li>Two invert switches to invert the individual delay outputs,</li>
+      <li>Several link switches to couple the CV control of the Y channel to the X channel, and</li>
+      <li>Two Dry/Wet output mixers.</li>
+    </ul>
+    <p>With these building blocks we can realize a series of physical models, described in the patch examples (Chapter 4).</p>
+    <p>Note that the Analog Waveguide can also be understood with reference to reverb design, as this is where its concept originated. See <a href="#bib-gerzon1">Gerzon, 1971</a> and <a href="#bib-gerzon2">Gerzon, 1972</a> for the original waveguide design concept. It can be mathematically best described as a <em>Unitary Feedback Delay Network</em>. A general description of such networks can be found in <a href="#bib-stautner">Stautner &amp; Puckette, 1982</a>. An implementation in Pure Data can be found in <a href="#bib-puckette">Puckette, 2011</a>.</p>
+  </section>
+</section>
+
+<section class="chapter" id="ch2">
+  <div class="chapter-head">
+    <div class="chapter-num">2</div>
+    <div class="chapter-titles">
+      <span class="chapter-kicker">Chapter 2</span>
+      <h1>Individual Functions</h1>
+    </div>
+  </div>
+
+  <p class="lead">The following sections are realized in pairs for the X- and Y channel.</p>
+
+  <section class="sub" id="pitch-section">
+    <h2>2.1 &nbsp; Pitch Section</h2>
+    <figure class="wide dark panel-crop">
+      <img src="assets/img/pitchsection.png" alt="Pitch section of the front panel: 1V/Oct input, Pitch knob, FM CV input and attenuverter, FM curve switch, invert switch.">
+      <figcaption><span class="fignum">Fig. 2.1</span> — Pitch section.</figcaption>
+    </figure>
+
+    <dl class="terms">
+      <div><dt>1V/Oct CV Input:</dt> <dd>Input for pitch information coming from a keyboard or sequencer. This affects the delay time of the BBD.<sup class="fnref" id="fnref-6"><a href="#fn-6">6</a></sup> The higher the pitch, the shorter the delay time. The 1V/Oct CV input of channel Y is normalled to the 1V/Oct CV input of channel X. The input range is −1.5 V to +5.5 V. The pitch tracks perfectly over this seven-octave range. The sample rate is 1.4 kHz.</dd></div>
+      <div><dt>Pitch Knob:</dt> <dd>Adjusts the pitch of the channel. The pitch knob ranges from C0 to C4 when nothing (or 0 V) is plugged into the 1V/Oct input, or otherwise acts as an offset to the 1V/Oct input. Most pitch sources are positive only, meaning that you would want to turn the pitch knob counter-clockwise, when a 1V/Oct source is plugged in, to let the 0 V CV signal play the lowest note. If nothing is connected into the 1V/Oct CV input of channel Y and the pitch link switch is turned off, its pitch knob controls the offset to the pitch of the X channel.</dd></div>
+      <div><dt>FM CV Input:</dt> <dd>Frequency modulation input to modulate the delay frequency with an LFO or another modulation source. The FM CV input of the Y channel is normalled to the FM CV input of the X channel. The input range is −8 V to 8 V, the sample rate is 1.4 kHz.</dd></div>
+      <div><dt>FM CV Attenuverter Knob:</dt> <dd>Adjusts the depth of the frequency modulation. The zero point is in the middle with a center detent. Turning the knob left inverts the modulation.</dd></div>
+      <div><dt>FM Curve Switch:</dt> <dd>This switch selects exponential (left position) vs. linear (right position) frequency modulation of the delay frequency. For slow vibrato effects choose exponential modulation; for fast audio-rate timbre-changing FM effects choose linear frequency modulation, as it preserves perceived pitch at high frequency rates.</dd></div>
+    </dl>
+  </section>
+
+  <section class="sub" id="lowpass-section">
+    <h2>2.2 &nbsp; Lowpass Section</h2>
+    <figure class="wide dark panel-crop">
+      <img src="assets/img/lowpasssection.png" alt="Lowpass section of the front panel: Lowpass knob, Lowpass CV input, Lowpass CV attenuverter.">
+      <figcaption><span class="fignum">Fig. 2.2</span> — Lowpass section.</figcaption>
+    </figure>
+    <dl class="terms">
+      <div><dt>Lowpass Knob:</dt> <dd>Controls the 6 dB/octave lowpass filter to simulate frequency-dependent damping. The frequency range is ~50 Hz to 20 kHz.</dd></div>
+      <div><dt>Lowpass CV Input:</dt> <dd>CV input to control the cutoff frequency of the lowpass filter. This input is normalled to the 1V/Oct pitch input to allow key tracking of the filter. The input range is ±5 V.</dd></div>
+      <div><dt>Lowpass CV Attenuverter Knob:</dt> <dd>Attenuverter to attenuate or invert the CV signal. When no input signal is connected to the Lowpass CV input, this knob controls the amount of key tracking. Turn the knob clockwise for positive key tracking and counter-clockwise for negative key tracking.</dd></div>
+    </dl>
+  </section>
+
+  <section class="sub" id="feedback-section">
+    <h2>2.3 &nbsp; Feedback Section</h2>
+    <figure class="wide dark panel-crop">
+      <img src="assets/img/feedbacksection.png" alt="Feedback section of the front panel: Feedback knob, Feedback CV input, Feedback CV attenuverter.">
+      <figcaption><span class="fignum">Fig. 2.3</span> — Feedback section.</figcaption>
+    </figure>
+    <dl class="terms">
+      <div><dt>Feedback Knob:</dt> <dd>Controls the feedback VCA volume to simulate damping by regulating the amount of signal fed back into the system. Turn counter-clockwise for short notes (fast decay) and clockwise for long sustained notes or self-oscillating drones.</dd></div>
+      <div><dt>Feedback CV Input:</dt> <dd>CV input to control the VCA volume. The input range is ±5 V.</dd></div>
+      <div><dt>Feedback CV Attenuverter Knob:</dt> <dd>Attenuverter to attenuate or invert the CV input signal.</dd></div>
+    </dl>
+  </section>
+
+  <section class="sub" id="io-section">
+    <h2>2.4 &nbsp; Input and Output Section</h2>
+    <figure class="wide dark panel-crop">
+      <img src="assets/img/inputoutputsection.png" alt="Input and output section of the front panel: input jack, output jack, send/return jacks, dry/wet knob, gain knob.">
+      <figcaption><span class="fignum">Fig. 2.4</span> — Input and output section.</figcaption>
+    </figure>
+    <dl class="terms">
+      <div><dt>Input Jack:</dt> <dd>This is the input for the audio signals that will be used to excite the Analog Waveguide. Each channel has its own input, so they can be independently excited, e.g. for duophonic play. The input range is ±12 V. Note that the Y input is normalled to the X input — the signal patched into the X input will also appear at the Y input if no cable is inserted into the Y input. You can break this connection by inserting a cable into the Y input.</dd></div>
+      <div><dt>Output Jack:</dt> <dd>Each channel has an independent mono output, which, when combined, can be used to create a stereo signal. The output range is ±5 V. Note that the audio output of channel X is normalled to the rotation CV input (see the Rotation Section below).</dd></div>
+      <div><dt>Send/Return Jacks:</dt> <dd>The Send/Return jacks allow you to patch in other modules — such as filters, phasers, flangers, or a second Analog Waveguide — into the feedback loop of the delay lines. The Send output is normalled to the Return input. Once a signal is inserted into the Return jack, the normalled connection is broken. This allows you to use the Send output as a copy of the audio output of the channel and apply it, for example, as an FM modulation source.</dd></div>
+      <div><dt>Dry/Wet Knob:</dt> <dd>This knob controls the amount of the channel's clean input audio that will be mixed in with the channel's processed audio before being sent to the output of that channel. The middle position is 50% in / 50% processed, at the center detent.</dd></div>
+      <div><dt>Gain Knob:</dt> <dd>This amplifies or attenuates the audio input signal. The gain spans from 0 to 10×.</dd></div>
+    </dl>
+  </section>
+
+  <section class="sub" id="rotation-section">
+    <h2>2.5 &nbsp; Rotation Section</h2>
+    <dl class="terms">
+      <div><dt>Rotation Knob:</dt> <dd>Controls the angle of rotation between the channels. This is an endless potentiometer,<sup class="fnref" id="fnref-7"><a href="#fn-7">7</a></sup> so the angles of 0 degrees and 360 degrees are at the same knob position.</dd></div>
+    </dl>
+    <figure class="narrow dark panel-crop">
+      <img src="assets/img/rotationknob.png" alt="Rotation knob detail.">
+      <figcaption><span class="fignum">Fig. 2.5</span> — Rotation knob.</figcaption>
+    </figure>
+
+    <dl class="terms">
+      <div><dt>Rotation CV Input:</dt> <dd>CV input for controlling the rotation angle. This input is normalled to the X channel's audio output, offering the possibility for creating non-linear FM-like sounds. The input range is ±8 V. The sampling frequency of this input is 48 kHz.</dd></div>
+    </dl>
+    <figure class="narrow dark panel-crop">
+      <img src="assets/img/rotationcv.png" alt="Rotation CV input and attenuverter detail.">
+      <figcaption><span class="fignum">Fig. 2.6</span> — Rotation CV input and attenuverter.</figcaption>
+    </figure>
+
+    <dl class="terms">
+      <div><dt>Rotation CV Attenuverter Knob:</dt> <dd>Attenuverter to attenuate or invert the Rotation CV signal. If nothing is patched to the Rotation CV input, turning this knob will control how strongly the X channel's output modulates the CV input for rotation angle control. Turning this knob introduces non-linear (loudness-dependent) behavior to the sound. Louder sounds will be more heavily modulated and will therefore have brighter spectra. This is great for metallic drum sounds.</dd></div>
+      <div><dt>Invert Switches:</dt> <dd>Each channel has an invert switch to invert the signal after it is rotated. This is akin to a phase inversion of 180 degrees, or a multiplication by −1. Inverting both channels and rotating by 180 degrees has the same effect, so using both at the same time will effectively cancel the rotation or inversion. Inverting only one of the two channels, however, will transform the rotation into a mirroring operation with a mirror axis at half of the set rotation angle.</dd></div>
+    </dl>
+  </section>
+
+  <section class="sub" id="link-switches">
+    <h2>2.6 &nbsp; Link Switches</h2>
+    <p>Each link switch has an on and off position marked with I and O. When the link is active, the settings of the X channel controls take over and are replicated to their equivalent Y channel controls.</p>
+    <dl class="terms">
+      <div><dt>Lowpass Link Switch:</dt> <dd>Controls whether or not the lowpass cutoff frequency of the Y channel follows the X channel. Flipping the switch to the right enables the link, flipping it left disables it. With the link enabled, the lowpass controls of the Y channel are disabled.</dd></div>
+      <div><dt>Feedback Link Switch:</dt> <dd>Controls whether or not the amount of feedback of the Y channel follows the X channel. If you want to use both channels independently and have different note lengths, disable the link. With the link enabled, the feedback controls of the Y channel are disabled.</dd></div>
+      <div><dt>Pitch Link Switch:</dt> <dd>Controls whether or not the pitch of the Y channel follows the X channel. With the link enabled, the Y channel can still be independently frequency-modulated, but the pitch knob and 1V/Oct input of the Y channel are disabled.</dd></div>
+    </dl>
+    <figure class="narrow dark panel-crop">
+      <img src="assets/img/linkswitches.png" alt="Link switches detail: Lowpass link, Feedback link, Pitch link.">
+      <figcaption><span class="fignum">Fig. 2.7</span> — Link switches.</figcaption>
+    </figure>
+  </section>
+</section>
+
+<section class="chapter" id="ch3">
+  <div class="chapter-head">
+    <div class="chapter-num">3</div>
+    <div class="chapter-titles">
+      <span class="chapter-kicker">Chapter 3</span>
+      <h1>Display and Level Meters</h1>
+    </div>
+  </div>
+
+  <section class="sub" id="display">
+    <h2>3.1 &nbsp; Display</h2>
+    <p class="lead">The display shows the module's output on x/y coordinates in real time, where the x-axis represents the amplitude of the X channel signal and the y-axis represents the amplitude of the Y channel signal. When using an oscilloscope, this method of displaying signals together is described as an "XY mode", and the resulting curves displayed are called Lissajous patterns.</p>
+
+    <p>A basic understanding of Lissajous patterns can help you understand how the parameters of the module are reflected in the curves displayed.</p>
+
+    <dl class="terms">
+      <div><dt>Straight line:</dt> <dd>If the display shows a straight line at a 45 degree angle, both the X and Y audio signals have exactly the same amplitude, frequency and phase. If the amplitude of the X channel is greater than the Y channel, the line moves towards the x-axis and vice-versa. A signal only in the X channel results in a horizontal line, whereas a signal only in the Y channel results in a vertical line.</dd></div>
+      <div><dt>Circles and ellipses:</dt> <dd>A circle or 45-degree-tilted ellipse means both signals have exactly the same frequency and amplitude, but different phases. At 0° phase shift we get a straight line at 45 degrees again, turning into a tilted ellipse between 0 and 90 degrees, and a perfect circle at 90 degrees. A phase difference between 90 and 180 degrees yields an ellipse tilted at 135 degrees, reaching another perfect circle at 270 degrees.</dd></div>
+      <div><dt>Lissajous patterns:</dt> <dd>When the frequencies of the delay channels differ by integer multiples, we get so-called Lissajous patterns. The number of lobes displayed on each axis tells us the ratio of the frequencies of the X and Y channel signals — e.g. three lobes against Y and one lobe against X means a 3:1 frequency ratio. When the difference in frequencies is a non-integer multiple, the pattern appears to rotate three-dimensionally. Lissajous patterns mostly appear in harmonic settings of the Analog Waveguide — at 0° or 180° of rotation.</dd></div>
+      <div><dt>Axis-symmetric patterns:</dt> <dd>When one of the two delay channels is inverted, we get axis-symmetric patterns around a symmetry axis at half the angle of the rotation knob setting.</dd></div>
+      <div><dt>Rotation-symmetric patterns:</dt> <dd>With none or both of the channels inverted and the frequencies of both channels linked, we get point- (or rotation-) symmetric images around the coordinate origin. The complexity of the pattern increases with the rotation angle until it reaches 90 degrees, decreases until 180 degrees, then increases again.</dd></div>
+    </dl>
+
+    <figure class="narrow dark panel-crop">
+      <img src="assets/img/display.png" alt="Analog Waveguide display with quadrants and axes." style="background:#e9e6dc;">
+      <figcaption><span class="fignum">Fig. 3.1</span> — Analog Waveguide display with quadrants and axes.</figcaption>
+    </figure>
+
+    <div class="box tip">
+      <div class="box-title">Try it — a live Lissajous pattern</div>
+      <p>The widget below approximates what the display shows: two sine oscillators (X and Y), mixed through the same rotation math described in Chapter 1. Drag the sliders to explore how frequency ratio, phase and rotation reshape the curve.</p>
+      <div id="lissajous-widget"></div>
+    </div>
+  </section>
+
+  <section class="sub" id="clipping-indicators">
+    <h2>3.2 &nbsp; Clipping Indicators</h2>
+    <p>Above the round display are two level meters acting as audio signal clipping indicators. The level meters light up green to indicate a safe signal level, yellow to indicate that the levels are approaching clipping, and red when clipping / distortion is occurring. They fade to black when the signal decays. The left clipping detector shows the peak levels of channel X, the right clipping indicator shows the peak levels of channel Y. Use the gain knobs to reduce the input gain, or reduce the amount of feedback, to avoid clipping if you want to achieve a sound without distortion.</p>
+  </section>
+</section>
+
+<section class="chapter" id="ch4">
+  <div class="chapter-head">
+    <div class="chapter-num">4</div>
+    <div class="chapter-titles">
+      <span class="chapter-kicker">Chapter 4</span>
+      <h1>Patch Examples</h1>
+    </div>
+  </div>
+
+  <p class="lead">Although the Analog Waveguide is not built to faithfully recreate the sound of acoustic instruments, it can create sounds with acoustic behaviors, because it is made up of building blocks inspired by physical acoustics. We think these patches are a great way to learn and memorize settings, and to understand what they are doing to the sound — because in the end it is probably easier for most people to relate to the sound of a guitar than to an "exponentially decaying, frequency-dampened harmonic series." And last but not least: it's fun!</p>
+
+  <section class="sub" id="excitation">
+    <h2>4.1 &nbsp; Recommendations for excitation</h2>
+    <p>Finding a good excitation signal for your patch is absolutely vital to good sound design! We have experimented a bit with what modules and characteristics make up good exciters, and we have found that a two-stage approach is favorable.</p>
+
+    <p>The first stage is used to create the initial energy for the note to play — this should be a short blip impulse of up to 50 ms in length. The peak voltage of this spike dictates the loudness of the note. A single impulse or a short noise burst contains energy in all frequencies, just like white noise. The impulse needs to rise fast enough to develop a good bright-sounding "click" to be usable.</p>
+
+    <p>The second stage controls the timbre of the note to be struck. We found that using bandpass and lowpass filters works well for this purpose. A bandpass filter will only allow through the partials of the resonator that it "lines up in frequency" with — that means, if we filter out everything except the frequencies between 400 and 600 Hz, then in the Analog Waveguide only the partials between 400 and 600 Hz will resonate, even if the fundamental is 100 Hz.</p>
+
+    <p>For the impulse stage you can use:</p>
+    <ul>
+      <li>Piezo microphones (connected through a preamp to the Analog Waveguide). Attach them to your desk, or a piece of wood, and strike it with drum sticks or brushes to capture structure-borne sounds and impact noises.</li>
+      <li>ADSRs or other short exponentially decaying envelopes with very fast attack times. Beware that not all envelope modules deliver fast enough attacks!</li>
+      <li>Drum triggers (short gates with up to 50 ms length).</li>
+      <li>Sample and hold circuits.</li>
+      <li>Square wave or sawtooth LFOs (useful if you want repeated note patterns).</li>
+    </ul>
+
+    <p>For the timbre coloration stage, we found the following, non-exhaustive, list of filters very suitable. We recommend using dual/stereo filters to color two excitation impulses independently and then send them to the audio inputs of the Analog Waveguide's X and Y channels.</p>
+    <ul>
+      <li>Weston Precision Audio: <em>SF1 Dual / Stereo Filter</em></li>
+      <li>Vermona: <em>TwinVCFilter</em></li>
+      <li>Cwejman <em>DFA-2, MMF-2</em></li>
+      <li>Rob Hordijk/Klanbaukölln: <em>Twin Peak Resonator</em></li>
+      <li>Epoch Modular: <em>Twinpeak</em> (discontinued)</li>
+    </ul>
+    <p>Other approaches for excitation can be:</p>
+    <ul>
+      <li>Sawtooth waveforms for voice-like formant filter sounds.</li>
+      <li>Filtered and modulated noise.</li>
+      <li>Drum sounds.</li>
+      <li>Slow sine and triangle LFOs (work well when the Analog Waveguide is close to self-resonance).</li>
+    </ul>
+  </section>
+
+  <section class="sub" id="duophonic">
+    <h2>4.2 &nbsp; Duophonic String &amp; Drum</h2>
+    <p>You can play the two channels as independent Karplus-Strong physical models of strings and drums. To be able to control every parameter of the two channels independently, make sure to:</p>
+    <ul>
+      <li>Switch off all link switches.</li>
+      <li>Set the rotation angle to zero degrees.</li>
+      <li>Plug two different 1V/Oct CV sources into the 1V/Oct X and 1V/Oct Y inputs.</li>
+      <li>Plug two different exciters into Input X and Input Y and adjust input levels.</li>
+    </ul>
+    <p>To play two string models, set the invert switches to off; to play a drum-like sound, set the invert switch to on. Play with the Lowpass knob to control the frequency-dependent damping. Use the Lowpass CV attenuverter knobs to control the pitch tracking of the lowpass filter cutoff with the 1V/Oct signals. Make sure that nothing is plugged into the rotation CV input, then turn the Rotation CV attenuverter knob to add some non-linearity to the sound. Turning the knob far enough can create the sound of a string being struck by a hammer.</p>
+  </section>
+
+  <section class="sub" id="pluck-position">
+    <h2>4.3 &nbsp; String with Pluck Position</h2>
+    <figure class="wide">
+      <img src="assets/img/JOS_folded_plucked_string.png" alt="Diagram for modeling pluck position, showing comb filter feeding into a delay line.">
+      <figcaption><span class="fignum">Fig. 4.1</span> — Diagram for modeling pluck position. Source: <a href="https://ccrma.stanford.edu/~jos/pasp/Equivalent_Forms.html">Smith, <em>Physical Audio Signal Processing</em></a>.</figcaption>
+    </figure>
+
+    <p>To model the pluck position of the string, we need to send our excitation signal through a comb filter before passing it into the Analog Waveguide's delay line. For this patch we will use both channels of the Analog Waveguide in a single voice.</p>
+
+    <figure class="wide">
+      <img src="assets/img/String-Pluck-Position.png" alt="VCV Rack patch: folded string with pluck position modeling using two Analog Waveguide delay lines.">
+      <figcaption><span class="fignum">Fig. 4.2</span> — Folded string with pluck position modeling.</figcaption>
+    </figure>
+
+    <p>In the patch above,<sup class="fnref" id="fnref-8"><a href="#fn-8">8</a></sup> Delayline X constitutes the comb filter, Delayline Y models the string resonance. We need to patch the output of Delayline X into Delayline Y. It is important that the two delay lines don't mix (Rotation = 0°) and their feedback gains and filters are not linked (switches are in O position). Their pitch, however, should be synchronized (Pitch Link switch set to I position) so as to implement a tracking comb filter that adapts to the pitch of the string.</p>
+
+    <p>Use a modwheel or another modulation source to modulate the frequency of the comb filter (FM input, exponential curve setting). This parameter resembles the pluck position on the string. For every delay time that is a multiple of the period of the string length, the fundamental will be excited strongly. All other delay times will excite different partial overtones.</p>
+
+    <p>The comb filter's feedback (Delayline X) deepens the effect of partials emerging from the pluck position. Note that this feedback should not resonate longer than the actual string in Delayline Y, though.</p>
+
+    <p>It helps to add a little bit of damping — this can be achieved using the low pass filter in Delayline Y. Also, you will get a more convincing string sound when using a high pass filter on the click (or noise burst) signal before it enters the comb filter. For the high pass you will need an additional module that is not shown above.</p>
+
+    <div class="box tip">
+      <div class="box-title">Tip</div>
+      <p>Making sure that the Waveguide's two delay lines are not being mixed together may require some fine adjustment of the Waveguide's Rotation setting. To achieve this, begin with an unpatched Waveguide and then start by sending an input audio signal to channel X, and either setting the Y channel gain to zero or plugging a dangling patch cable into the Y channel input, so that no audio is fed into that channel. Set the Feedback amount on both channels to zero, the Rotation CV attenuverter knob to center, the channel X gain so that the signal is not clipping, and the Dry/Wet knobs completely to wet. Now listen to the output of the Y channel whilst adjusting the Rotation knob around the zero-degrees point. Find the setting where you hear the least amount of the channel X input signal — this corresponds to the position with the least mixing between channels.</p>
+    </div>
+  </section>
+
+  <section class="sub" id="trumpet">
+    <h2>4.4 &nbsp; Natural Trumpet/Brass</h2>
+    <figure class="wide">
+      <img src="assets/img/trumpet.png" alt="VCV Rack patch for a natural trumpet/brass sound using a single delay line as bore with a resonant filter in its feedback loop.">
+      <figcaption><span class="fignum">Fig. 4.3</span> — Trumpet/Brass patch.</figcaption>
+    </figure>
+
+    <p>A natural trumpet is a trumpet without valves that can only play natural harmonics, i.e. the eigenmodes of its resonator. When playing the trumpet, the player excites exactly one harmonic (eigenmode) of the bore using lip pressure. By exciting different harmonics of the natural series, it is possible to play all notes of the twelve-tone scale at higher harmonics. The lower harmonics are too widely spaced (octave, fifth, ...) — only from the 8th overtone are tone steps possible. So to play a scale, the resonator needs to be roughly three octaves lower.</p>
+
+    <p>In our case, we use a single delay line as the bore, with a resonant filter patched into its feedback loop through the send/return connectors to excite the harmonics. Sweeping the resonant filter's cutoff steps through the harmonics of the delay line. If you want to play exact notes, use a 1V/Oct tracking filter with a quantized pitch source. To imitate the swell of the note, we use an ADSR that plugs into the delay's VCA, aka Feedback CV. The feedback path through the filter will only activate when the ADSR is triggered. The filter takes care of "choosing" the harmonic from the delay's eigenmodes. We set both invert switches to 0 and the rotation knob to 0°, so we get the natural harmonic series, just like a natural trumpet.</p>
+
+    <p>In this state, the patch will excite only the self-resonance of the bore (a sine wave) and will rather resemble a flute-like instrument. We are still missing an important part of the sound character of a trumpet: the non-linear mixing of pressure waves at the mouthpiece. In a real trumpet, the movement and airflow from the player's lips interferes with the reflected waves from the bore. This interference can be approximated by self-modulating the amplitude of the pressure wave modeled by channel X. To achieve this we can use the Rotation CV attenuverter knob — turning it away from center allows the outgoing wave from Delayline X to modulate itself (the rotation operation in a single delay can also be seen as a type of amplitude modulation with a sine wave). Now we get a typical brassy sound character.</p>
+
+    <p>We do not really need the second delay line for this patch, but we can use it to our advantage to make the sound richer. We tune it either exactly or slightly off from Delay X and adjust the feedback to our liking — detuning it will make the sound richer.</p>
+
+    <p>Another neat trick is to use an LFO to add some vibrato to one or both delay lines. Patch an LFO running at ≈7 Hz into the channel X FM CV input, switch the modulation curve to exponential, and turn the FM CV attenuverter knob just a few degrees off center to get a vibrato. This will result in more phase mismatches when we amplitude-modulate, making the sound richer. Note that the Y channel FM CV is normalled to that of the X channel, meaning you can use the other Y channel FM CV attenuverter to add vibrato to the second delay line as well.</p>
+
+    <p>Instead of using a triggered envelope, it can be more interesting to play the trumpet with an expressive controller that generates the envelope with a pressure signal — such as the Doepfer Trautonium/Ribbon Controller, Haken Continuum, a keyboard with aftertouch, or a breath controller. Just plug the pressure signal/aftertouch directly into the channel X Feedback CV input instead of the ADSR envelope.</p>
+  </section>
+
+  <section class="sub" id="handpan">
+    <h2>4.5 &nbsp; Handpan/Steel Drum</h2>
+    <figure class="wide">
+      <img src="assets/img/handpan_steeldrum.png" alt="VCV Rack patch for handpan/steel drum sound using two bandpass-filtered LFO/noise sources into the Analog Waveguide.">
+      <figcaption><span class="fignum">Fig. 4.4</span> — Handpan or steel drum patch.</figcaption>
+    </figure>
+
+    <p>The Analog Waveguide can produce sounds similar to those of a handpan (Hang), or steel drum. If you adjust the dials correctly, you can produce shimmering harmonics and overtone melodies that give the impression of hearing the instrument being played by hand. The parameters of the Analog Waveguide itself are relatively easy to dial in:</p>
+    <ul>
+      <li>About 180° rotation — you can experiment between 135°–225°.</li>
+      <li>Rotation CV slightly dialed in, ≈1–2 o'clock.</li>
+      <li>Pitch link off.</li>
+      <li>Different pitch settings between 200 Hz – 400 Hz on both channels.</li>
+      <li>Feedback and lowpass link on, invert switches off.</li>
+      <li>Set feedback to a longer decay, somewhere before self-oscillation occurs.</li>
+    </ul>
+
+    <p>It is crucial to use the right excitation signal for the handpan patch to sound good. We got the best results with the Twin Peak<sup class="fnref" id="fnref-9"><a href="#fn-9">9</a></sup> dual bandpass filter, filtering a click (i.e. a very low frequency pulse), or a square wave/sawtooth LFO input signal. One of the two bandpass filter's center frequencies is set to the fundamental of the sound (≈200 Hz), the other center frequency should be tuned slightly lower, but modulated upwards in frequency with pink noise. The more intense the noise modulation, the more the sound resembles that of a handpan played with the palm of the hand rather than with the fingers. Less noise results in a duller but more voluminous sound.</p>
+
+    <p>Modulating the center frequency of the other bandpass filter using a sample-and-hold signal synchronized to the LFO creates different overtones, similar to playing different notes on a handpan. Increasing the Waveguide's Rotation CV attenuverter knob produces a stronger non-linear response in the sound. Combined with adding slightly more resonance (Q) on the excitation signal's bandpass filters, this results in a sound similar to that of a steel drum.</p>
+
+    <p>In the patch above we use the "RANDOM" module to generate a trigger and a sample and hold on each step. The pink noise comes from the "NOIS" module.</p>
+  </section>
+
+  <section class="sub" id="unfolded-string">
+    <h2>4.6 &nbsp; Unfolded String Model</h2>
+    <figure class="wide">
+      <img src="assets/img/Unfolded-String-Pluck-Position.jpg" alt="VCV Rack patch showing an unfolded string model using both delay lines with cross-feedback and inversion.">
+      <figcaption><span class="fignum">Fig. 4.5</span> — Unfolded string with pluck position modeling.</figcaption>
+    </figure>
+
+    <p>Here we will model the two impulses that run along a string in opposite directions when it is plucked. This requires both of the Analog Waveguide's delay lines, with the X channel modeling the impulse traveling right along the string and the Y channel the impulse traveling left. Both of these combined form the waveguide string model. Our modified rotation scattering junction behaves like an inverting reflection at the nut and the bridge of a string instrument, as illustrated above.</p>
+
+    <p>We can make a model of a string that represents physical reality a bit more closely by using two delay lines instead of just one.</p>
+
+    <figure class="wide">
+      <img src="assets/img/JOS_unfolded_string.png" alt="Diagram of the unfolded string model, showing right-moving and left-moving delay lines with sign inversion at each end.">
+      <figcaption><span class="fignum">Fig. 4.6</span> — Diagram of an "unfolded" string. Source: <a href="https://ccrma.stanford.edu/~jos/pasp/Computational_Savings.html">Smith, <em>Physical Audio Signal Processing</em></a>.</figcaption>
+    </figure>
+
+    <p>When a physical string on an instrument is plucked, two waves of vibration run through the string in opposite directions, emanating from the pluck position — call them the left- and right-moving waves. They reflect at the bridge and nut of the instrument and continue to travel in opposite directions, crossing each other once every period without interference until the sound dies out. We can model this process using one delay per wave direction. As illustrated above, the upper delay line carries the right-moving wave, the lower delay carries the left-moving wave. When changing directions, the waves reflect with an inversion — hence the multiplication by −1 at each end of the string.</p>
+
+    <p>To model this with the Analog Waveguide, we need to feed both delay lines into each other with a sign inversion before entering each delay. Achieving this requires some consideration of how to configure the Analog Waveguide so as to give us two inversions and feed the delay lines into each other in a big loop.</p>
+
+    <p>The rotation scattering junction at the Analog Waveguide's core is governed by the following two equations. Each delay output $x_d$ and $y_d$ is mixed into every output $x'$ and $y'$ by a rotation operation.</p>
+
+    <div class="equation">
+      $$x' = x_d\cos\theta - y_d\sin\theta$$
+      $$y' = x_d\sin\theta + y_d\cos\theta$$
+    </div>
+
+    <p>Additionally there are two invert switches to invert either the X or Y channel, or both. These are indicated mathematically by the ± sign:</p>
+
+    <div class="equation">
+      $$x' = \pm(x_d\cos\theta - y_d\sin\theta)$$
+      $$y' = \pm(x_d\sin\theta + y_d\cos\theta)$$
+    </div>
+
+    <p>In a special parameterization, this model can behave just like the waveguide string model. To achieve this, we set the rotation angle $\theta = 90°$, so $\sin\theta = 1$ and $\cos\theta = 0$. If additionally the Y channel is inverted, we get the original governing equations for the waveguide string model:</p>
+
+    <div class="equation">
+      $$x' = -y_d$$
+      $$y' = -x_d$$
+    </div>
+
+    <p>Here the aforementioned waves traveling in either direction of the string are modeled using the X and Y channels — combined they constitute the waveguide string model. Our modified rotation scattering junction behaves like an inverting reflection at the nut and bridge of a string instrument.</p>
+
+    <p>It is not necessary to patch the output of one delay into the other, since it is already routed (mixed) internally via the rotation core. The outputs of the two delay lines must be mixed together into one mono signal for the moving-wave modeling to be effective — listened to independently, the two channels would model the right and left vibrations moving separately, which is physically impossible.</p>
+
+    <p>If you add a delay on the input of one of the two delay lines, you can once again simulate a changing pluck position: this is directly analogous to the physical string — if you change the plucking position, the left- and right-going waves arrive at different times at the nut and bridge.</p>
+
+    <p>With this model you can also implement different reflection (impedance) behaviors on the bridge vs. the nut. You can access the bridge and nut via the Send and Return jacks on each delay line.</p>
+  </section>
+</section>
+
+<section class="chapter" id="ch5">
+  <div class="chapter-head">
+    <div class="chapter-num">5</div>
+    <div class="chapter-titles">
+      <span class="chapter-kicker">Chapter 5</span>
+      <h1>Menu System</h1>
+    </div>
+  </div>
+
+  <p class="lead">The menu allows you to adjust some parameters of the module that are not accessible from the front plate, to show the firmware version, to initiate firmware updates, or to re-calibrate the module.</p>
+
+  <div class="box tip">
+    <div class="box-title">Navigating the menu</div>
+    <ul>
+      <li>To enter the settings menu, press the factory settings button on the right side of the module, next to the USB-C port, see figure below.</li>
+      <li>To select a menu entry use the Rotation knob.</li>
+      <li>To enter a submenu or edit a parameter, push the factory settings button.</li>
+      <li>To exit or go back to the previous menu, scroll to the "Go back" menu entry and push the button.</li>
+    </ul>
+  </div>
+
+  <figure class="wide">
+    <img src="assets/img/button.jpg" alt="The factory settings button on the bottom circuit board, marked with a yellow circle.">
+    <figcaption><span class="fignum">Fig. 5.1</span> — The factory settings button is on the bottom circuit board on the right side of the module. To access it, you must either unscrew the Analog Waveguide from your rack, or alternatively have empty space on the right side of it.</figcaption>
+  </figure>
+
+  <p>On entering the menu, you will be presented with the following options:</p>
+
+  <div class="device-menu">
+    <div class="dm-title">Main Menu</div>
+    <ul>
+      <li class="sel">Settings</li>
+      <li>Show firmware version</li>
+      <li>Firmware update mode</li>
+      <li>Calibration</li>
+      <li>Exit Menu</li>
+    </ul>
+  </div>
+
+  <p>To enter the setting menu, navigate to the "Settings" entry and press the factory settings button.</p>
+
+  <section class="sub" id="settings">
+    <h2>5.1 &nbsp; Settings</h2>
+    <p>Here you can set parameters related to the display and internal sound processing.</p>
+
+    <section class="subsub" id="display-settings">
+      <h3>Display Settings</h3>
+      <p>This menu allows you to set the timer for the screen saver and the brightness of the display.</p>
+      <dl class="settings">
+        <div><dt>Display Brightness</dt><dd>Adjusts the screen brightness in steps of 1%. In case you encounter noise issues related to the display, try setting this value to 100%. This will deactivate the display dimming that is based on high frequency switching of the back light.</dd></div>
+        <div><dt>Screen Saver</dt><dd>Sets the timer for the screen saver between 5 s to 2 h, or "off".</dd></div>
+      </dl>
+    </section>
+
+    <section class="subsub" id="limiter-settings">
+      <h3>Limiter Settings</h3>
+      <p>The Analog Waveguide features a digitally controlled analog limiter in the feedback path of each delay line. They operate with the same parameters. You can adjust them in the limiter settings menu.</p>
+      <dl class="settings">
+        <div><dt>Threshold [dB]</dt><dd>Adjusts the threshold in decibels above which limiting starts. Values above −3 dB allow for more distortion. A value of 0 dB will deactivate the limiter. If you still encounter distortion try values below −3 dB and longer release times.</dd></div>
+        <div><dt>Soft knee [dB]</dt><dd>Allows for a smooth transition between limiting and distortion. For hard limiting choose 0 dB; a positive value will enable smooth limiting, with a bit less pumping and some added distortion.</dd></div>
+        <div><dt>Release [ms]</dt><dd>Adjust the release time in milliseconds. Larger values will limit more efficiently, while smaller values will result in less of a pumping effect.</dd></div>
+        <div><dt>Reset</dt><dd>Resets the limiter parameters to the default settings.</dd></div>
+      </dl>
+    </section>
+  </section>
+</section>
+
+<section class="chapter" id="ch6">
+  <div class="chapter-head">
+    <div class="chapter-num">6</div>
+    <div class="chapter-titles">
+      <span class="chapter-kicker">Chapter 6</span>
+      <h1>Calibration Procedures</h1>
+    </div>
+  </div>
+
+  <p class="lead">Your module arrives fully calibrated and it is not foreseen that you would have to adjust the trimmers on the circuit boards or change the calibration values in the firmware. In case it is necessary to re-calibrate the module, perhaps due to ageing components or other circumstances, here are all the steps explained. A full calibration of the module requires BBD calibration and rotation &amp; channel calibration.</p>
+
+  <p>For a totally uncalibrated module, it is recommended to follow all calibration routines in exactly the order they are presented here. For fine adjustments of an already calibrated module, single steps can be carried out in any order.</p>
+  <p>For best results, let the module heat up for approximately 15 minutes before starting calibration.</p>
+
+  <section class="sub" id="bbd-calibration">
+    <h2>6.1 &nbsp; BBD Calibration</h2>
+    <p>For the following steps you will need an oscilloscope or a voltmeter as well as a very small slotted screwdriver or trimmer adjustment tool. These instructions assume that the module has up to date firmware and is powered via a Eurorack power connector.</p>
+
+    <section class="subsub" id="adjust-delay-offsets">
+      <h3>Adjust Delay Input Offsets</h3>
+      <ol>
+        <li>Connect the voltmeter/oscilloscope to the testpoint marked <strong>DlyIn</strong> on the left side of the bottom circuit board.</li>
+        <li>Adjust trimmer labelled <strong>Vbias X</strong> until you read 6 V.</li>
+        <li>Repeat the same for the opposite side with <strong>Vbias Y</strong>.</li>
+      </ol>
+    </section>
+
+    <section class="subsub" id="adjust-clock-trimmer">
+      <h3>Adjust Clock Trimmer</h3>
+      <div class="box prep">
+        <div class="box-title">Preparation</div>
+        <ol>
+          <li>Turn the pitch X and Y knobs on the front panel fully CCW to set the BBD clocks to their slowest speed.</li>
+          <li>Turn the feedback X and Y knobs on the front panel fully CCW to suppress feedback.</li>
+          <li>Turn the lowpass knobs fully CW to open both filters.</li>
+          <li>Turn the rotation angle knob to 0°.</li>
+          <li>Connect Analog Waveguide's outputs X and Y to a pair of speakers or headphones and turn up the amplification until you can hear the clock noise.</li>
+        </ol>
+      </div>
+      <div class="box calibrate">
+        <div class="box-title">Calibration</div>
+        <ol>
+          <li>Adjust trimmer <strong>ClkTrim X</strong> until the clock noise is as low as possible.</li>
+          <li>Repeat the same for the opposite side with <strong>ClkTrim Y</strong>.</li>
+        </ol>
+      </div>
+    </section>
+  </section>
+
+  <section class="sub" id="rotation-channel-calibration">
+    <h2>6.2 &nbsp; Rotation &amp; Channel Calibration</h2>
+    <p>For the following steps you will need a very small slotted screwdriver or trimmer adjustment tool and a small Phillips screwdriver.</p>
+    <p>Some steps are mutually dependent, which means that it may be necessary to follow the calibration procedure more than once for improved results. Each time you will get closer to the optimum.</p>
+
+    <section class="subsub" id="trim-cv-feedthrough">
+      <h3>Trim CV feed-through</h3>
+      <p>Due to manufacturing tolerances of the analog multiplier chips on the module, it is necessary to trim voltage offsets at the rotation control voltage input, such that higher frequency modulation signals will not be heard at the output.</p>
+      <p>There are two trimmers on the top side of the upper PCB labeled <strong>X OFST</strong> and <strong>Y OFST</strong>. These adjust a millivolts' worth of offset to the inputs of the multipliers. You can adjust them with a small slotted screwdriver (or a dedicated trimmer adjustment tool). See figure below.</p>
+
+      <figure class="wide">
+        <img src="assets/img/CV_feedthrough_trimmer.jpg" alt="The two X OFST and Y OFST trimmers on top of the module, marked with yellow circles.">
+        <figcaption><span class="fignum">Fig. 6.1</span> — The two trimmers for the CV feed-through can be found on the top of the module.</figcaption>
+      </figure>
+
+      <p>To help with the procedure, there is a program in firmware to generate a sine wave modulating the rotation automatically. Follow these steps to minimize the CV feed-through:</p>
+
+      <div class="box prep">
+        <div class="box-title">Preparation</div>
+        <ol>
+          <li>Turn the X and Y channel Gain knobs on the front panel fully CCW to suppress any input signal.</li>
+          <li>Turn the X and Y Feedback knobs on the front panel fully CCW to suppress feedback.</li>
+          <li>Turn the Lowpass knobs of both channels fully CW to open both filters.</li>
+          <li>Listen to the stereo output of the module through a speaker or headphones.</li>
+        </ol>
+      </div>
+      <div class="box calibrate">
+        <div class="box-title">Calibration</div>
+        <ol>
+          <li>Press the factory settings button.</li>
+          <li>Use the Rotation knob to navigate to the <span class="menupath">Calibration → Trim CV feedthrough</span> menu entry and press the factory settings button to enter.</li>
+          <li>You should hear a sine wave with a frequency of 220 Hz.</li>
+          <li>Now turn the left trimmer until you reach the point where the sine tone is the quietest.</li>
+          <li>Now turn the right trimmer until you reach the point where the sine tone is the quietest.</li>
+          <li>Repeat the previous two steps until the sine tone cannot be trimmed quieter in volume.</li>
+          <li>The resulting tone should be so quiet that you can hear some background noise with enough amplification.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="subsub" id="trim-xy-decay-boost">
+      <h3>Trim XY decay boost</h3>
+      <p>To give the Feedback knobs on the front panel a musical range, self resonance should start to occur at around the 3 o'clock position. To set this we need to adjust the one-turn trimmers on the bottom side of the upper PCB. The trimmers are labeled <strong>Decay Boost X</strong> and <strong>Decay Boost Y</strong>. Be careful when adjusting them, they are very sensitive. See figure below.</p>
+
+      <figure class="wide">
+        <img src="assets/img/boost_trimmer.jpg" alt="The two Decay Boost X and Y trimmers directly under the frontplate, marked with yellow circles.">
+        <figcaption><span class="fignum">Fig. 6.2</span> — The two trimmers for the XY decay boost are the black and white trimmers with the cross slot through hole directly under the frontplate.</figcaption>
+      </figure>
+
+      <p>To help with the procedure, there is a program in firmware to measure the loudness of the Analog Waveguide's self resonance. Follow these steps to adjust the trimmers:</p>
+
+      <div class="box prep">
+        <div class="box-title">Preparation</div>
+        <ol>
+          <li>Let the module heat up for approximately 15 minutes.</li>
+          <li>Turn down the volume of your speakers or shut them off completely. It's going to be loud.</li>
+          <li>Turn the X and Y channel Gain knobs on the front panel fully CCW to suppress any input signal.</li>
+          <li>Turn the X and Y channel Feedback knobs on the front panel to a 3 o'clock position.</li>
+          <li>Turn the Lowpass knobs on both channels fully CW to open both filters.</li>
+          <li>Deactivate the Feedback Link switch on the front panel.</li>
+        </ol>
+      </div>
+      <div class="box calibrate">
+        <div class="box-title">Calibration</div>
+        <ol>
+          <li>Press the factory settings button.</li>
+          <li>Use the Rotation knob to navigate to the <span class="menupath">Calibration → Trim XY decay boost</span> menu entry and press the factory settings button to enter.</li>
+          <li>With a small Phillips screwdriver, turn the "Decay Boost X" trimmer CCW until you hear a feedback tone on the left speaker and you see the RMS loudness bar graph showing a signal.</li>
+          <li>Carefully adjust the trimmer such that the top of the bar graph resides in the green back lit area.</li>
+          <li>The RMS signal power should be between −3 dB and −9 dB. The ideal target being at −6 dB.</li>
+          <li>Press the factory settings button again and repeat the process for the "Decay Boost Y" trimmer.</li>
+          <li>When the RMS value is good, press the factory settings button to return to the menu.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="subsub" id="trim-xy-channel-balance">
+      <h3>Trim XY channel balance</h3>
+      <p>To balance the X and Y channels in their overall volume it is necessary to adjust the <strong>Y Gain</strong> trimmer on the right side of the upper PCB. See figure below.</p>
+
+      <figure class="wide">
+        <img src="assets/img/Y_trimmer.jpg" alt="The Y Gain trimmer directly under the frontplate on the right side of the module, marked with a yellow circle.">
+        <figcaption><span class="fignum">Fig. 6.3</span> — The Y Gain trimmer is the one directly under the frontplate on the right side of the module.</figcaption>
+      </figure>
+
+      <p>Follow these steps to adjust the trimmer:</p>
+
+      <div class="box prep">
+        <div class="box-title">Preparation</div>
+        <ol>
+          <li>Turn the X and Y channel Gain knobs on the front panel fully CCW to suppress any input signal.</li>
+          <li>Turn the X and Y channel Feedback knobs on the front panel to around 3 o'clock.</li>
+          <li>Turn the Lowpass knobs on both channels fully CW to open both filters.</li>
+          <li>Activate the feedback link switch on the front panel.</li>
+        </ol>
+      </div>
+      <div class="box calibrate">
+        <div class="box-title">Calibration</div>
+        <ol>
+          <li>Press the factory settings button.</li>
+          <li>Use the Rotation knob to navigate to the <span class="menupath">Calibration → Trim XY channel balance</span> menu entry and press the factory settings button to enter.</li>
+          <li>You will hear the playback of tones on the output of the module. The screen should show a red and a blue line representing the RMS volume of the tones played back. The blue line represents the X (left) channel and the red line represents the Y (right) channel. At the bottom of the screen their average difference in signal power in decibels is shown. The goal is to reduce this average difference to less than 2 dB.</li>
+          <li>Adjust the left Feedback knob until the blue line is roughly diagonal.</li>
+          <li>With a small slotted screwdriver, turn the <strong>Y Gain</strong> trimmer to adjust the decay of the red line. Turning CCW increases the decay, turning CW decreases the decay.</li>
+          <li>Adjust the trimmer until both graphs overlap as much as possible. You are controlling the shape of the red graph with the trimmer.</li>
+          <li>When the 2 dB target is met, the routine finishes automatically.</li>
+        </ol>
+      </div>
+
+      <div class="box tip">
+        <div class="box-title">Troubleshooting</div>
+        <p>If you see strange dips in one or both RMS power measurement lines, this is due to large offset errors on the DAC outputs that are corrected in the auto-calibration step. Should you find it impossible to reach the target difference of 2 dB here, move on to the auto-calibration explained in the next section by canceling the process with a press of the factory settings button.</p>
+      </div>
+    </section>
+
+    <section class="subsub" id="auto-calibration">
+      <h3>Auto-calibration</h3>
+      <p>The module implements a mathematical rotation in 2D space (made up by the signals in the analog delay lines) with the help of digitally controlled analog multipliers. To make sure this rotation is carried out with the highest possible precision the controller for the multipliers needs to be calibrated. Luckily this process can be carried out automatically by adjusting different parameters and simultaneously taking RMS measurements of the outputs.</p>
+      <p>If your module's rotation operation is not well calibrated, then the decay of sounds will vary with the rotation angle. In this case a re-calibration of the controller is recommended.</p>
+
+      <div class="box prep">
+        <div class="box-title">Preparation</div>
+        <ol>
+          <li>Turn the X and Y channel Gain knobs on the front panel fully CCW to suppress any input signal.</li>
+          <li>Turn the X and Y channel Feedback knobs on the front panel to around 3 o'clock.</li>
+          <li>Turn the Lowpass knobs on both channels fully CW to open both filters.</li>
+          <li>Activate the feedback link switch on the front panel.</li>
+        </ol>
+      </div>
+      <div class="box calibrate">
+        <div class="box-title">Calibration</div>
+        <ol>
+          <li>Press the factory settings button.</li>
+          <li>Use the Rotation knob to navigate to the <span class="menupath">Calibration → Start auto-calibration</span> menu entry and press the factory settings button to enter.</li>
+          <li>Let the automatic calibration procedure run. It will take approximately two minutes to finish.</li>
+        </ol>
+      </div>
+
+      <p>The module should be fully calibrated now. To check if the module has been set up with appropriate calibration values, read the next section. Running the auto-calibration again (without re-initialization) will help fine tune the calibration even further.</p>
+    </section>
+
+    <section class="subsub" id="edit-reset-calibration">
+      <h3>Edit/reset calibration parameters</h3>
+      <p>This menu lets you view and edit the calibration parameters for the digitally controlled rotation operation. It can help with sanity checking the calibrated values. References for appropriate values are shown below.</p>
+
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Value</th><th>min.</th><th>max.</th></tr></thead>
+          <tbody>
+            <tr><td>sine/cosine X/Y scale</td><td>+0.4</td><td>+0.5</td></tr>
+            <tr><td>sine/cosine X/Y offset</td><td>−50</td><td>+50</td></tr>
+          </tbody>
+        </table>
+        <figcaption>Sane ranges for automatically calibrated values.</figcaption>
+      </div>
+
+      <div class="box tip">
+        <div class="box-title">Troubleshooting</div>
+        <p>If the calibrated values of your module lie outside of the ranges listed above, consider resetting the calibration values to the defaults as described in the next section and then running the auto-calibration routine again. If the problem persists, please post on our forum at <a href="https://discourse.chair.audio/c/hardware/eurorack/10">discourse.chair.audio</a> or contact us directly via <a href="mailto:support@chair.audio">support@chair.audio</a>.</p>
+      </div>
+
+      <h4 class="mini">Editing the calibration data</h4>
+      <p>It is not normally recommended to change the calibrated values of the Waveguide's parameters manually. However, as an emergency option, it is possible to edit these values by hand. To edit the parameters, navigate to them, click the factory settings button, then turn the Rotation knob to change them.</p>
+
+      <h4 class="mini">Re-initializing the calibration data</h4>
+      <p>If a previous auto-calibration failed, you can re-initialize (factory reset) the calibration values to their defaults here. After resetting, you will need to run the auto-calibration again, otherwise the module will be uncalibrated and will not sound good!</p>
+      <p>To reset the calibration values to their defaults (= good initial guesses) proceed with the following steps:</p>
+      <ol>
+        <li>Press the factory settings button.</li>
+        <li>Rotation knob to navigate to the <span class="menupath">Calibration → Edit calibration data</span> menu entry and press the factory settings button to enter.</li>
+        <li>In this menu, navigate to the "Re-initialize" entry.</li>
+        <li>To confirm, press the factory settings button.</li>
+        <li>The scale values should now be reset to +0.45 and the offset values to 0.0.</li>
+      </ol>
+      <p>You now need to run the auto-calibration procedure again to re-calibrate the module.</p>
+    </section>
+  </section>
+</section>
+
+<section class="chapter" id="ch7">
+  <div class="chapter-head">
+    <div class="chapter-num">7</div>
+    <div class="chapter-titles">
+      <span class="chapter-kicker">Chapter 7</span>
+      <h1>Firmware Update</h1>
+    </div>
+  </div>
+
+  <p class="lead">We will make firmware updates available occasionally. Firmware updates may improve performance and stability, add features or fix bugs. They may also introduce new bugs, but we still encourage you to stay up-to-date. Note: since the Waveguide's signal path is analog, the power of the module's microcontroller code over its sound is restricted to the digital functions of the module. As such, we kindly request that you curb your expectations of what future firmware updates might be able to deliver in terms of new features.</p>
+
+  <section class="sub" id="firmware-version">
+    <h2>7.1 &nbsp; Firmware Version</h2>
+    <p>You can check which firmware you are using by pressing the factory settings button on the right side of the bottom board, next to the USB-C port. The menu entry "Show firmware version" shows the currently installed firmware version along with the build date. If your firmware version is lower than v.1.2.3, please update. See the Firmware Version History chapter for a changelog of the firmware versions. To update, download the firmware from our website <a href="https://discourse.chair.audio">discourse.chair.audio</a>, unzip the archive, and follow the procedure listed in the next section.</p>
+  </section>
+
+  <section class="sub" id="firmware-update-methods">
+    <h2>7.2 &nbsp; Firmware Update</h2>
+
+    <section class="subsub" id="web-updater">
+      <h3>Using the Web Updater</h3>
+      <p>The easiest and preferred way to update the Analog Waveguide is by using our WebUSB updater. It only requires a Chromium web browser to run. Head to <a href="https://chairaudio.github.io/CHAIR-browser-dfu/">chairaudio.github.io/CHAIR-browser-dfu</a> using Google Chrome, Microsoft Edge, Brave, Opera, or any other Chromium-based browser.<sup class="fnref" id="fnref-10"><a href="#fn-10">10</a></sup> Follow the instructions you find on the website above.</p>
+    </section>
+
+    <section class="subsub" id="cube-programmer">
+      <h3>Using STM32 Cube Programmer</h3>
+      <p>Alternatively, you may also use the STM Cube Programmer<sup class="fnref" id="fnref-11"><a href="#fn-11">11</a></sup> to update the firmware. You can download the software without registering for an account on STM by clicking on "Download as a guest" when asked to log in or register.</p>
+
+      <div class="stepblocks">
+        <ol>
+          <li>Press the factory settings button momentarily.</li>
+          <li>Use the Rotation knob to navigate to the "Firmware update mode" menu entry and press the factory settings button to enter.</li>
+          <li>Press and hold the firmware update button for two seconds to put the module into firmware update mode.</li>
+          <li>You are now in firmware update mode. The module will stay unresponsive until the update is complete.</li>
+          <li>Connect the Analog Waveguide to your computer with a USB-C data cable.</li>
+          <li>Open STM Cube Programmer.</li>
+        </ol>
+      </div>
+
+      <figure class="wide">
+        <img src="assets/img/select_USB.jpg" alt="STM32CubeProgrammer: select USB from the connection type dropdown.">
+        <figcaption><span class="fignum">Fig. 7.1</span> — Select "USB".</figcaption>
+      </figure>
+
+      <figure class="wide">
+        <img src="assets/img/click_refresh.jpg" alt="STM32CubeProgrammer: click the reload icon, choose the device by PID/VID, then click Connect.">
+        <figcaption><span class="fignum">Fig. 7.2</span> — Click the "reload" icon, choose the device with PID: <code>0xDF11</code> and VID: <code>0x0483</code>, then click "Connect".</figcaption>
+      </figure>
+
+      <figure class="wide">
+        <img src="assets/img/click_open_file.jpg" alt="STM32CubeProgrammer: click the Open file tab and choose the firmware file.">
+        <figcaption><span class="fignum">Fig. 7.3</span> — Click the "Open file" tab and choose the new firmware file from your file system.</figcaption>
+      </figure>
+
+      <figure class="wide">
+        <img src="assets/img/press_download.jpg" alt="STM32CubeProgrammer: click the Download button.">
+        <figcaption><span class="fignum">Fig. 7.4</span> — Click the "Download" button.</figcaption>
+      </figure>
+
+      <div class="stepblocks">
+        <ol start="7">
+          <li>Click the "Open file" tab and choose the new firmware file from your file system.</li>
+          <li>Click the "Download" button.</li>
+          <li>The download process will start now, wait for it to finish.</li>
+          <li>Unfortunately the device doesn't reboot automatically and there is no option to do so from the programmer, so you will need to manually switch the Analog Waveguide's power source off and on again.</li>
+        </ol>
+      </div>
+      <p>Congratulations, you have updated your firmware.</p>
+    </section>
+
+    <section class="subsub" id="dfu-util">
+      <h3>Using command line tool DFU util</h3>
+      <p>Lastly, the most basic method for a firmware update is the command line tool dfu-util.<sup class="fnref" id="fnref-12"><a href="#fn-12">12</a></sup> To update via command line follow these steps:</p>
+      <ol>
+        <li>Press the factory settings button momentarily.</li>
+        <li>Use the Rotation knob to navigate to the "Firmware update mode" menu entry and press the factory settings button to enter.</li>
+        <li>Press and hold the firmware update button for two seconds to put the module in firmware update mode.</li>
+        <li>You are now in firmware update mode. The module will stay unresponsive until the update is complete.</li>
+        <li>Connect the Analog Waveguide to your computer with a USB-C data cable.</li>
+        <li id="dfuutil-step">Using dfu-util run:
+          <div class="tablewrap"><table><tbody><tr><td><code>sudo dfu-util -a 0 -i 0 -s 0x08000000:leave -D Analog-Waveguide-Firmware_v1.2.3.bin</code></td></tr></tbody></table></div>
+          You may get the following error, which you can safely ignore: <code>dfu-util: Error during download get_status</code>.
+        </li>
+        <li>When the download is finished the module will restart. You may disconnect the USB-C cable now.</li>
+      </ol>
+      <p>Congratulations, you have updated your firmware.</p>
+    </section>
+  </section>
+
+  <section class="sub" id="troubleshooting">
+    <h2>7.3 &nbsp; Troubleshooting</h2>
+
+    <section class="subsub" id="calibration-lost">
+      <h3>Calibration Data is lost</h3>
+      <p>In some rare and unusual cases it may be possible for the calibration data stored in the Analog Waveguide's memory to be overwritten. For example, when the option "full erase" in the STM Cube Programmer is set. In this case, you need to re-calibrate your Analog Waveguide. Follow the steps from <a href="#auto-calibration">Auto-calibration</a>.</p>
+    </section>
+
+    <section class="subsub" id="fw-update-mode-trouble">
+      <h3>Getting into Firmware Update Mode</h3>
+      <p>Power cycling the Analog Waveguide while it is in firmware update mode should not cause any problems, as long as the firmware update process was not initiated and running at the time of power loss. However, in case something goes wrong during an update and the module does not behave as intended afterwards, have no fear! There is no risk of bricking the device. Simply re-initiate the update with the following steps:</p>
+      <ol>
+        <li>Connect the Analog Waveguide to a Eurorack power supply using the ribbon power cable, but DO NOT supply power yet.</li>
+        <li>Connect the module via a USB-C data cable to your computer.</li>
+        <li>Press and hold the firmware update button and then switch the power supply to the Eurorack ribbon cable on.</li>
+        <li>Switch the power supply to the Eurorack ribbon cable on.</li>
+        <li>You are now in firmware update mode and can release the firmware update button.</li>
+        <li>Proceed further from the dfu-util step above with your preferred update software.</li>
+      </ol>
+      <p>If you still encounter problems please join and consult our online forum <a href="https://discourse.chair.audio/c/hardware/eurorack/10">discourse.chair.audio</a> or contact us at <a href="mailto:support@chair.audio">support@chair.audio</a>.</p>
+    </section>
+  </section>
+</section>
+
+<section class="chapter" id="ch8">
+  <div class="chapter-head">
+    <div class="chapter-num">8</div>
+    <div class="chapter-titles">
+      <span class="chapter-kicker">Chapter 8</span>
+      <h1>Cleaning and Maintenance</h1>
+    </div>
+  </div>
+  <p class="lead">Use a dust cover or cloth to keep your Eurorack system protected and dust free. If dust accumulates, use a handheld manual air blower (the kind used for cleaning photographic equipment) or alternatively a vacuum cleaner to remove it. In case contactless methods do not suffice for dust removal, use a cleaning gel (usually sold for car interiors, a slimey/gooey material), or alternatively a soft brush and gently wipe affected surfaces. If you need to remove greasy stains, use a small amount of mild soap in lukewarm water on a soft fabric.</p>
+  <p>Do not rub on the Analog Waveguide's display glass. Do not apply force. <strong>Never use alcohol</strong> (rubbing alcohol, isopropanol, spiritus, etc.) to clean acrylic surfaces under tension like the watch-glass on the Analog Waveguide. If you need professional repair work, get in touch with us.</p>
+</section>
+
+<section class="chapter" id="ch9">
+  <div class="chapter-head">
+    <div class="chapter-num">9</div>
+    <div class="chapter-titles">
+      <span class="chapter-kicker">Chapter 9</span>
+      <h1>Firmware Version History</h1>
+    </div>
+  </div>
+
+  <dl class="settings">
+    <div><dt>1.2.3</dt><dd>Digitally controlled analog limiter with soft knee on internal feedback path minimizes input and feedback distortion. Limiter parameters settable in the menu. More flexible menu parameter editing and rendering. Use only Rotation knob + push button in menu. MPU/RAM optimizations allowing for slightly bigger vertical waveform image size and higher rotation CV sample rate (81.92 kHz). Higher waveform resolution thanks to higher internal sample rate. Fixes flickering peak indicators. Mute when entering menu. Screen saver with settings. Display brightness with settings. New higher order digital filters on digital interface elements resulting in lower noise on all knobs, most noticeable on rotation CV attenuverter. Lower noise and lower latency on pitch and FM CV inputs. Fixes zipper noise on rotation control knob.</dd></div>
+    <div><dt>1.0.5</dt><dd>Long press (to enter firmware update mode) is now a little bit less long (2 instead of 3 seconds).</dd></div>
+    <div><dt>1.0.4</dt><dd>Corrects endless potentiometer rotation direction and waveform display (y-axis was inverted on display, 360 degree potentiometer rotation direction was reversed — these two bugs almost canceled each other out and therefore remained undetected).</dd></div>
+    <div><dt>1.0.2</dt><dd>Accelerated display. Made button press more robust. Reordered menu items to reflect recommended order for calibration. Firmware update (bootloader) mode now accessible through menu.</dd></div>
+    <div><dt>1.0.0</dt><dd>Initial release.</dd></div>
+  </dl>
+</section>
+
+<footer class="colophon" id="manufacturer">
+  <span class="chapter-kicker">Colophon</span>
+  <h2 style="font-size:1.7rem; margin-bottom:1rem;">Manufacturer</h2>
+  <p class="lead" style="margin-bottom:1.6rem;">Made on planet Earth with components from all over the world. Printed circuit boards made in Europe, assembled in Germany. Conceived and designed in Weimar and Marseille.</p>
+  <div class="tablewrap">
+    <table>
+      <tbody>
+        <tr><th>Address</th><td>Neupert &amp; Wegener GbR<br>Martersteigstr. 4<br>99423 Weimar<br>Germany</td></tr>
+        <tr><th>Web</th><td><a href="https://chair.audio">chair.audio</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="bibliography" style="font-size:1.35rem; border-bottom:2px solid var(--ink); padding-bottom:.5rem; margin-top:2.6rem;">Bibliography</h2>
+  <ul class="bib-list">
+    <li id="bib-wegener">Wegener, C., &amp; Neupert, M. (2024). <em>The Aliased Complex Oscillator as a Paradigm for Analog Physical Modeling Sound Synthesis</em>. In H. S. Kye &amp; R. Dudas (Eds.), Proceedings of the 49th International Computer Music Conference 2024. Seoul: The International Computer Music Association.</li>
+    <li id="bib-gerzon1">Gerzon, M. (1971). Synthetic Stereo Reverberation, Part One. <em>Studio Sound</em>, December 1971, pp. 632–635.</li>
+    <li id="bib-gerzon2">Gerzon, M. (1972). Synthetic Stereo Reverberation, Part Two. <em>Studio Sound</em>, January 1972, pp. 24–28.</li>
+    <li id="bib-stautner">Stautner, J., &amp; Puckette, M. (1982). Designing Multi-Channel Reverberators. <em>Computer Music Journal</em>, 6(1), 52.</li>
+    <li id="bib-puckette">Puckette, M. (2011). <em>Infuriating Nonlinear Reverberator</em>. Proceedings of ICMC 2011, Huddersfield.</li>
+    <li id="bib-smith">Smith, J. O. (2010). <em>Physical Audio Signal Processing</em>. W3K Publishing. <a href="https://ccrma.stanford.edu/~jos/pasp/">ccrma.stanford.edu/~jos/pasp</a></li>
+  </ul>
+
+  <h2 id="notes" style="font-size:1.35rem; border-bottom:2px solid var(--ink); padding-bottom:.5rem; margin-top:2.6rem;">Notes</h2>
+  <ol class="notes-list">
+    <li id="fn-1">Typically the view is rotated 45° on such a device, so that a mono (in-phase) signal appears as a vertical line, rather than diagonal. We chose to not rotate our display, so that the quadrants of the coordinate system directly correspond to the sign of the X and Y signals. <a class="back" href="#fnref-1">↩</a></li>
+    <li id="fn-2">Mixed to mono, this signal would be silence, as the left and right channel would cancel each other out completely. <a class="back" href="#fnref-2">↩</a></li>
+    <li id="fn-3">An in-built connection that is broken as soon as a cable is inserted into the corresponding input. <a class="back" href="#fnref-3">↩</a></li>
+    <li id="fn-4">The Greek lower case letter Theta, commonly used to denote an angle. <a class="back" href="#fnref-4">↩</a></li>
+    <li id="fn-5">Pseudo-physical models are not aiming to model an existing acoustic instrument or physical object with complete accuracy, but rather explore the sonic possibilities that physical modeling techniques open up, without a real-world equivalent necessarily existing. <a class="back" href="#fnref-5">↩</a></li>
+    <li id="fn-6">Bucket Brigade Delay, a chip technology used for the analog delay lines at the heart of the Analog Waveguide. <a class="back" href="#fnref-6">↩</a></li>
+    <li id="fn-7">Corrects endless potentiometer rotation direction — see the firmware version history for details on relevant fixes. An endless potentiometer has no minimum or maximum position and can be turned indefinitely in either direction. <a class="back" href="#fnref-7">↩</a></li>
+    <li id="fn-8">The illustration of this patch was made with a dummy Analog Waveguide module for VCV Rack, a modular synthesizer simulator, for illustrative purposes only. <a class="back" href="#fnref-8">↩</a></li>
+    <li id="fn-9">In VCV Rack: Twin Peaks. <a class="back" href="#fnref-9">↩</a></li>
+    <li id="fn-10">Mozilla Firefox and Safari are not based on Chromium and thus not supported. <a class="back" href="#fnref-10">↩</a></li>
+    <li id="fn-11"><a href="https://www.st.com/en/development-tools/stm32cubeprog.html">st.com/en/development-tools/stm32cubeprog.html</a> <a class="back" href="#fnref-11">↩</a></li>
+    <li id="fn-12"><a href="https://dfu-util.sourceforge.net">dfu-util.sourceforge.net</a> <a class="back" href="#fnref-12">↩</a></li>
+  </ol>
+  <!-- FOOTER_MARKER -->
+</footer>
+
+</main>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  try{
+    if(typeof renderMathInElement === 'function'){
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false}
+        ],
+        throwOnError:false
+      });
+    }
+  }catch(e){ console.error('KaTeX render failed', e); }
+
+  // Mobile menu toggle
+  var btn = document.getElementById('menuToggle');
+  var sidebar = document.getElementById('sidebar');
+  if(btn){
+    btn.addEventListener('click', function(){
+      var open = sidebar.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true':'false');
+    });
+    sidebar.addEventListener('click', function(e){
+      if(e.target.tagName === 'A' && window.innerWidth <= 900){
+        sidebar.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  // Scrollspy for TOC
+  var sections = Array.from(document.querySelectorAll('.chapter, .hero'));
+  var links = Array.from(document.querySelectorAll('#toc a'));
+  function onScroll(){
+    var pos = window.scrollY + 120;
+    var current = sections[0];
+    sections.forEach(function(s){ if(s.offsetTop <= pos) current = s; });
+    links.forEach(function(l){ l.classList.remove('active'); });
+    if(current && current.id){
+      var match = links.find(function(l){ return l.getAttribute('href') === '#'+current.id; });
+      if(match) match.classList.add('active');
+    }
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // Lissajous live widget
+  var host = document.getElementById('lissajous-widget');
+  if(host){
+    host.innerHTML =
+      '<div style="display:flex; gap:1.5rem; flex-wrap:wrap; align-items:flex-start; margin-top:.6rem;">'+
+      '<canvas id="lj-canvas" width="280" height="280" style="background:#232221; border-radius:10px; flex:none;"></canvas>'+
+      '<div style="flex:1 1 200px; min-width:180px; font-size:.86rem;">'+
+        '<label style="display:block; margin-bottom:.9rem;">Frequency ratio Y:X<br>'+
+          '<input id="lj-ratio" type="range" min="1" max="5" step="1" value="1" style="width:100%;">'+
+          '<span id="lj-ratio-val" style="color:var(--ink-soft);">1:1</span></label>'+
+        '<label style="display:block; margin-bottom:.9rem;">Phase difference<br>'+
+          '<input id="lj-phase" type="range" min="0" max="360" step="1" value="90" style="width:100%;">'+
+          '<span id="lj-phase-val" style="color:var(--ink-soft);">90°</span></label>'+
+        '<label style="display:block;">Rotation θ<br>'+
+          '<input id="lj-rot" type="range" min="0" max="360" step="1" value="0" style="width:100%;">'+
+          '<span id="lj-rot-val" style="color:var(--ink-soft);">0°</span></label>'+
+      '</div></div>';
+
+    var canvas = document.getElementById('lj-canvas');
+    var ctx = canvas.getContext('2d');
+    var ratioEl = document.getElementById('lj-ratio');
+    var phaseEl = document.getElementById('lj-phase');
+    var rotEl = document.getElementById('lj-rot');
+    var ratioVal = document.getElementById('lj-ratio-val');
+    var phaseVal = document.getElementById('lj-phase-val');
+    var rotVal = document.getElementById('lj-rot-val');
+
+    function draw(){
+      var ratio = parseInt(ratioEl.value,10);
+      var phase = parseInt(phaseEl.value,10) * Math.PI/180;
+      var theta = parseInt(rotEl.value,10) * Math.PI/180;
+      ratioVal.textContent = '1:'+ratio;
+      phaseVal.textContent = parseInt(phaseEl.value,10)+'°';
+      rotVal.textContent = parseInt(rotEl.value,10)+'°';
+
+      var W = canvas.width, H = canvas.height, cx = W/2, cy = H/2, R = W*0.38;
+      ctx.clearRect(0,0,W,H);
+
+      // axes
+      ctx.strokeStyle = 'rgba(255,255,255,.18)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(cx,10); ctx.lineTo(cx,H-10);
+      ctx.moveTo(10,cy); ctx.lineTo(W-10,cy);
+      ctx.stroke();
+
+      ctx.strokeStyle = '#ECDD46';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      var N = 900;
+      for(var i=0;i<=N;i++){
+        var t = i/N * Math.PI*2;
+        var x = Math.sin(t);
+        var y = Math.sin(ratio*t + phase);
+        var xr = x*Math.cos(theta) - y*Math.sin(theta);
+        var yr = x*Math.sin(theta) + y*Math.cos(theta);
+        var px = cx + xr*R;
+        var py = cy - yr*R;
+        if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+      }
+      ctx.stroke();
+    }
+    [ratioEl, phaseEl, rotEl].forEach(function(el){ el.addEventListener('input', draw); });
+    draw();
+  }
+});
+</script>
+
+</body>
+</html>
