@@ -197,7 +197,6 @@ section.subsub h3{ font-size:1.08rem; color:var(--ink); }
 h4.mini{ font-size:.98rem; margin-bottom:.4rem; }
 
 .lead{
-  font-size:1.15rem;
   color:var(--ink);
 }
 
@@ -232,6 +231,7 @@ figure{ margin:2rem 0; }
 figure img{
   border-radius:var(--radius);
   border:1px solid var(--line);
+  max-width:36em;
 }
 figure.dark img{ background:var(--panel); }
 figcaption{
@@ -389,6 +389,7 @@ sup.fnref a{
 
 footer.colophon{
   padding:3.5rem clamp(1.5rem,5vw,5rem) 5rem;
+  max-width:46em;
 }
 footer.colophon h2{ font-size:1.3rem; }
 
@@ -512,8 +513,7 @@ a:focus-visible, button:focus-visible{
 <section class="hero">
   <div class="hero-eyebrow">Manual of Operation</div>
   <h1>Analog Waveguide</h1>
-  <div class="subtitle">Sound in motion</div>
-  <p class="lead">You are probably reading this because you have bought our Analog Waveguide or may be considering doing so. In any case: congratulations on this excellent choice, you have our deepest gratitude for your trust and support.</p>
+  <div class="subtitle">A versatile stereo resonator for physical modeling sound synthesis.</div>
   <div class="hero-meta">
     <span>Compatible with firmware version +fwv+</span>
     <span>Hardware revision +hwr+ (production)</span>
@@ -532,7 +532,9 @@ a:focus-visible, button:focus-visible{
     </div>
   </div>
 
-  <p class="lead">This manual is purposely technical to satisfy those of you who desire to <em>thoroughly</em> understand the conceptual background and electro-physical principles of this resonator. It is meant to empower those who want to master this instrument in its entirety and know all details of every control and parameter.</p>
+  <p>You are probably reading this because you have bought our Analog Waveguide or may be considering doing so. In any case: congratulations on this excellent choice, you have our deepest gratitude for your trust and support.</p>
+  
+  <p>This manual is purposely technical to satisfy those of you who desire to <em>thoroughly</em> understand the conceptual background and electro-physical principles of this resonator. It is meant to empower those who want to master this instrument in its entirety and know all details of every control and parameter.</p>
 
   <p>That said, please do not be deterred or discouraged by the complexity of this manual — luckily there is absolutely no necessity to internalize the underlying math to be able to make great sounds, because the Analog Waveguide is a very <em>playful</em> device, which lets you explore sounds intuitively and will give you joy doing so, even if you have not absorbed every concept in the manual. For further accessibility, we have compiled a playlist of user videos for the Analog Waveguide. You can find the playlist on our YouTube channel.</p>
 
@@ -871,7 +873,7 @@ a:focus-visible, button:focus-visible{
       <li>Weston Precision Audio: <em>SF1 Dual / Stereo Filter</em></li>
       <li>Vermona: <em>TwinVCFilter</em></li>
       <li>Cwejman <em>DFA-2, MMF-2</em></li>
-      <li>Rob Hordijk/Klanbaukölln: <em>Twin Peak Resonator</em></li>
+      <li>Rob Hordijk/Klangbauköln: <em>Twin Peak Resonator</em></li>
       <li>Epoch Modular: <em>Twinpeak</em> (discontinued)</li>
     </ul>
     <p>Other approaches for excitation can be:</p>
@@ -964,7 +966,7 @@ a:focus-visible, button:focus-visible{
 
     <p>Modulating the center frequency of the other bandpass filter using a sample-and-hold signal synchronized to the LFO creates different overtones, similar to playing different notes on a handpan. Increasing the Waveguide's Rotation CV attenuverter knob produces a stronger non-linear response in the sound. Combined with adding slightly more resonance (Q) on the excitation signal's bandpass filters, this results in a sound similar to that of a steel drum.</p>
 
-    <p>In the patch above we use the "RANDOM" module to generate a trigger and a sample and hold on each step. The pink noise comes from the "NOIS" module.</p>
+    <p>In the patch above we use the “RANDOM” module to generate a trigger and a sample and hold on each step. The pink noise comes from the "NOIS" module.</p>
   </section>
 
   <section class="sub" id="unfolded-string">
