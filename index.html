@@ -587,10 +587,6 @@ a:focus-visible, button:focus-visible{
     <p>This way of viewing signal pairs is similar to that used in a stereo phase scope / analyzer used by the recording and broadcasting industries.<sup class="fnref" id="fnref-1"><a href="#fn-1">1</a></sup></p>
     <p>If the input is a monophonic signal (X and Y are identical), the image on the X/Y view is a signal oscillating in a diagonal line from the top right quadrant (+x, +y, <em>I</em>) to the bottom left quadrant (−y, −x, <em>III</em>). If the left channel is shifted 180° in phase to the right channel, the signal will oscillate from the top left quadrant (−x, +y, <em>II</em>) to the bottom right quadrant (+x, −y, <em>IV</em>).<sup class="fnref" id="fnref-2"><a href="#fn-2">2</a></sup></p>
 
-    <div class="quadrant-table" role="img" aria-label="The four quadrants of a Cartesian plane: II top-left, I top-right, III bottom-left, IV bottom-right.">
-      <div>II</div><div>I</div>
-      <div>III</div><div>IV</div>
-    </div>
 
     <figure class="narrow dark panel-crop">
       <img src="assets/img/display.png" alt="Analog Waveguide display with quadrants and axes." style="background:#e9e6dc;">
@@ -825,11 +821,6 @@ a:focus-visible, button:focus-visible{
       <div><dt>Axis-symmetric patterns:</dt> <dd>When one of the two delay channels is inverted, we get axis-symmetric patterns around a symmetry axis at half the angle of the rotation knob setting.</dd></div>
       <div><dt>Rotation-symmetric patterns:</dt> <dd>With none or both of the channels inverted and the frequencies of both channels linked, we get point- (or rotation-) symmetric images around the coordinate origin. The complexity of the pattern increases with the rotation angle until it reaches 90 degrees, decreases until 180 degrees, then increases again.</dd></div>
     </dl>
-
-    <figure class="narrow dark panel-crop">
-      <img src="assets/img/display.png" alt="Analog Waveguide display with quadrants and axes." style="background:#e9e6dc;">
-      <figcaption><span class="fignum">Fig. 3.1</span> — Analog Waveguide display with quadrants and axes.</figcaption>
-    </figure>
 
   </section>
 
@@ -1502,7 +1493,7 @@ a:focus-visible, button:focus-visible{
 </div>
 
 <link rel="stylesheet" href="assets/katex.min.css">
-<script src="assets/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 <script src="assets/auto-render.min.js"></script>
 
 <script>
@@ -1573,6 +1564,25 @@ document.addEventListener('DOMContentLoaded', function(){
   document.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
 
+  // Lissajous live widget
+  var host = document.getElementById('lissajous-widget');
+  if(host){
+    host.innerHTML =
+      '<div style="display:flex; gap:1.5rem; flex-wrap:wrap; align-items:flex-start; margin-top:.6rem;">'+
+      '<canvas id="lj-canvas" width="280" height="280" style="background:#232221; border-radius:10px; flex:none;"></canvas>'+
+      '<div style="flex:1 1 200px; min-width:180px; font-size:.86rem;">'+
+        '<label style="display:block; margin-bottom:.9rem;">Frequency ratio Y:X<br>'+
+          '<input id="lj-ratio" type="range" min="1" max="5" step="1" value="1" style="width:100%;">'+
+          '<span id="lj-ratio-val" style="color:var(--ink-soft);">1:1</span></label>'+
+        '<label style="display:block; margin-bottom:.9rem;">Phase difference<br>'+
+          '<input id="lj-phase" type="range" min="0" max="360" step="1" value="90" style="width:100%;">'+
+          '<span id="lj-phase-val" style="color:var(--ink-soft);">90°</span></label>'+
+        '<label style="display:block;">Rotation θ<br>'+
+          '<input id="lj-rot" type="range" min="0" max="360" step="1" value="0" style="width:100%;">'+
+          '<span id="lj-rot-val" style="color:var(--ink-soft);">0°</span></label>'+
+      '</div></div>';
+  }
+});
 </script>
 
 </body>
