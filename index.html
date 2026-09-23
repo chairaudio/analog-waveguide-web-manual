@@ -593,11 +593,11 @@ a:focus-visible, button:focus-visible{
       <figcaption><span class="fignum">Fig. 1.2</span> — Analog Waveguide display with quadrants and axes.</figcaption>
     </figure>
 
-    <p>The Analog Waveguide has the right (Y) channel pre-patched to the left (X) channel internally,<sup class="fnref" id="fnref-3"><a href="#fn-3">3</a></sup> so if you have nothing plugged into the right input, the left input is used on both channels. If you intentionally want the right input to be mute you can put a dangling cable into the right input or simply turn the gain knob all the way down.</p>
+    <p>The Analog Waveguide has the right (Y) channel pre-patched to the left (X) channel internally,<sup class="fnref” id="fnref-3"><a href="#fn-3">3</a></sup> so if you have nothing plugged into the right input, the left input is used on both channels. If you intentionally want the right input to be mute you can put a dangling cable into the right input or simply turn the gain knob all the way down.</p>
 
-    <p>Each side of the Analog Waveguide — X and Y — is a <em>feedback-delay network</em>. The input signal is fed into a delay, a low-pass filter, and then back into the delay with some attenuation.</p>
+    <p>Each side of the Analog Waveguide—X and Y—is a <em>feedback-delay network</em>. The input signal is fed into a delay, a low-pass filter, and then back into the delay with some attenuation.</p>
 
-    <p>Now the rotation is simple if you understood everything so far. Every time we feed the delay output back to the input for the resonating effect, we can rotate this point on the two-dimensional space, representing the stereo signal, around the origin point of the coordinate system (0,0) by a given angle. At an angle of 0° the two feedback delay networks operate independently of each other — there is no cross-mix between them.</p>
+    <p>Now the rotation is simple if you understood everything so far. Every time we feed the delay output back to the input for the resonating effect, we can rotate this point on the two-dimensional space, representing the stereo signal, around the origin point of the coordinate system (0,0) by a given angle. At an angle of 0° the two feedback delay networks operate independently of each other—there is no cross-mix between them.</p>
 
     <p>Since the tail of the resonance gets rotated every time it is fed back into the delay line, the rotation also represents the speed with which the timbre of the tail resonance is changing. This velocity is highest at 90° and 270°, while at 180° we get a flip-flopping reflection.</p>
 
@@ -613,7 +613,7 @@ a:focus-visible, button:focus-visible{
     <p>This rotation mix between two feedback-delay networks has two notable effects:</p>
     <ol>
       <li>The sum is always power preserving. This is an essential property for physical modeling synthesis and resonators in general, because then your resonating sound will not be at risk of exploding into uncontrollable feedback or dying into nothingness.</li>
-      <li>The spectral spread of the overtones gets bent inharmonically. A single feedback delay (Karplus-Strong synthesis) always sounds like a one-dimensional resonator: a string. Our Analog Waveguide can do string sounds (with the rotation angle at 0°), but additionally can sound like two-dimensional resonators — gongs, plates, cymbals, membranes, drums, handpans, even trumpets — due to the scattering reflections in a plane which the rotation introduces.</li>
+      <li>The spectral spread of the overtones gets bent inharmonically. A single feedback delay (Karplus-Strong synthesis) always sounds like a one-dimensional resonator: a string. Our Analog Waveguide can do string sounds (with the rotation angle at 0°), but additionally can sound like two-dimensional resonators—gongs, plates, cymbals, membranes, drums, handpans, even trumpets—due to the scattering reflections in a plane which the rotation introduces.</li>
     </ol>
     <p>We published a paper providing a deeper explanation of why exactly this inharmonic distortion happens: <a href="#bib-wegener">Wegener &amp; Neupert, 2024</a>.</p>
   </section>
@@ -752,9 +752,9 @@ a:focus-visible, button:focus-visible{
       <figcaption><span class="fignum">Fig. 2.4</span> — Input and output section.</figcaption>
     </figure>
     <dl class="terms">
-      <div><dt>Input Jack:</dt> <dd>This is the input for the audio signals that will be used to excite the Analog Waveguide. Each channel has its own input, so they can be independently excited, e.g. for duophonic play. The input range is ±12 V. Note that the Y input is normalled to the X input — the signal patched into the X input will also appear at the Y input if no cable is inserted into the Y input. You can break this connection by inserting a cable into the Y input.</dd></div>
+      <div><dt>Input Jack:</dt> <dd>This is the input for the audio signals that will be used to excite the Analog Waveguide. Each channel has its own input, so they can be independently excited, e.g. for duophonic play. The input range is ±12 V. Note that the Y input is normalled to the X input—the signal patched into the X input will also appear at the Y input if no cable is inserted into the Y input. You can break this connection by inserting a cable into the Y input.</dd></div>
       <div><dt>Output Jack:</dt> <dd>Each channel has an independent mono output, which, when combined, can be used to create a stereo signal. The output range is ±5 V. Note that the audio output of channel X is normalled to the rotation CV input (see the Rotation Section below).</dd></div>
-      <div><dt>Send/Return Jacks:</dt> <dd>The Send/Return jacks allow you to patch in other modules — such as filters, phasers, flangers, or a second Analog Waveguide — into the feedback loop of the delay lines. The Send output is normalled to the Return input. Once a signal is inserted into the Return jack, the normalled connection is broken. This allows you to use the Send output as a copy of the audio output of the channel and apply it, for example, as an FM modulation source.</dd></div>
+      <div><dt>Send/Return Jacks:</dt> <dd>The Send/Return jacks allow you to patch in other modules—such as filters, phasers, flangers, or a second Analog Waveguide—into the feedback loop of the delay lines. The Send output is normalled to the Return input. Once a signal is inserted into the Return jack, the normalled connection is broken. This allows you to use the Send output as a copy of the audio output of the channel and apply it, for example, as an FM modulation source.</dd></div>
       <div><dt>Dry/Wet Knob:</dt> <dd>This knob controls the amount of the channel's clean input audio that will be mixed in with the channel's processed audio before being sent to the output of that channel. The middle position is 50% in / 50% processed, at the center detent.</dd></div>
       <div><dt>Gain Knob:</dt> <dd>This amplifies or attenuates the audio input signal. The gain spans from 0 to 10×.</dd></div>
     </dl>
@@ -810,14 +810,14 @@ a:focus-visible, button:focus-visible{
 
   <section class="sub" id="display">
     <h2>3.1 &nbsp; Display</h2>
-    <p class="lead">The display shows the module's output on x/y coordinates in real time, where the x-axis represents the amplitude of the X channel signal and the y-axis represents the amplitude of the Y channel signal. When using an oscilloscope, this method of displaying signals together is described as an "XY mode", and the resulting curves displayed are called Lissajous patterns.</p>
+    <p class="lead">The display shows the module's output on x/y coordinates in real time, where the x-axis represents the amplitude of the X channel signal and the y-axis represents the amplitude of the Y channel signal. When using an oscilloscope, this method of displaying signals together is described as an “XY mode", and the resulting curves displayed are called Lissajous patterns.</p>
 
     <p>A basic understanding of Lissajous patterns can help you understand how the parameters of the module are reflected in the curves displayed.</p>
 
     <dl class="terms">
       <div><dt>Straight line:</dt> <dd>If the display shows a straight line at a 45 degree angle, both the X and Y audio signals have exactly the same amplitude, frequency and phase. If the amplitude of the X channel is greater than the Y channel, the line moves towards the x-axis and vice-versa. A signal only in the X channel results in a horizontal line, whereas a signal only in the Y channel results in a vertical line.</dd></div>
       <div><dt>Circles and ellipses:</dt> <dd>A circle or 45-degree-tilted ellipse means both signals have exactly the same frequency and amplitude, but different phases. At 0° phase shift we get a straight line at 45 degrees again, turning into a tilted ellipse between 0 and 90 degrees, and a perfect circle at 90 degrees. A phase difference between 90 and 180 degrees yields an ellipse tilted at 135 degrees, reaching another perfect circle at 270 degrees.</dd></div>
-      <div><dt>Lissajous patterns:</dt> <dd>When the frequencies of the delay channels differ by integer multiples, we get so-called Lissajous patterns. The number of lobes displayed on each axis tells us the ratio of the frequencies of the X and Y channel signals — e.g. three lobes against Y and one lobe against X means a 3:1 frequency ratio. When the difference in frequencies is a non-integer multiple, the pattern appears to rotate three-dimensionally. Lissajous patterns mostly appear in harmonic settings of the Analog Waveguide — at 0° or 180° of rotation.</dd></div>
+      <div><dt>Lissajous patterns:</dt> <dd>When the frequencies of the delay channels differ by integer multiples, we get so-called Lissajous patterns. The number of lobes displayed on each axis tells us the ratio of the frequencies of the X and Y channel signals—e.g. three lobes against Y and one lobe against X means a 3:1 frequency ratio. When the difference in frequencies is a non-integer multiple, the pattern appears to rotate three-dimensionally. Lissajous patterns mostly appear in harmonic settings of the Analog Waveguide—at 0° or 180° of rotation.</dd></div>
       <div><dt>Axis-symmetric patterns:</dt> <dd>When one of the two delay channels is inverted, we get axis-symmetric patterns around a symmetry axis at half the angle of the rotation knob setting.</dd></div>
       <div><dt>Rotation-symmetric patterns:</dt> <dd>With none or both of the channels inverted and the frequencies of both channels linked, we get point- (or rotation-) symmetric images around the coordinate origin. The complexity of the pattern increases with the rotation angle until it reaches 90 degrees, decreases until 180 degrees, then increases again.</dd></div>
     </dl>
@@ -839,15 +839,15 @@ a:focus-visible, button:focus-visible{
     </div>
   </div>
 
-  <p class="lead">Although the Analog Waveguide is not built to faithfully recreate the sound of acoustic instruments, it can create sounds with acoustic behaviors, because it is made up of building blocks inspired by physical acoustics. We think these patches are a great way to learn and memorize settings, and to understand what they are doing to the sound — because in the end it is probably easier for most people to relate to the sound of a guitar than to an "exponentially decaying, frequency-dampened harmonic series." And last but not least: it's fun!</p>
+  <p class="lead">Although the Analog Waveguide is not built to faithfully recreate the sound of acoustic instruments, it can create sounds with acoustic behaviors, because it is made up of building blocks inspired by physical acoustics. We think these patches are a great way to learn and memorize settings, and to understand what they are doing to the sound—because in the end it is probably easier for most people to relate to the sound of a guitar than to an “exponentially decaying, frequency-dampened harmonic series.” And last but not least: it's fun!</p>
 
   <section class="sub" id="excitation">
     <h2>4.1 &nbsp; Recommendations for excitation</h2>
     <p>Finding a good excitation signal for your patch is absolutely vital to good sound design! We have experimented a bit with what modules and characteristics make up good exciters, and we have found that a two-stage approach is favorable.</p>
 
-    <p>The first stage is used to create the initial energy for the note to play — this should be a short blip impulse of up to 50 ms in length. The peak voltage of this spike dictates the loudness of the note. A single impulse or a short noise burst contains energy in all frequencies, just like white noise. The impulse needs to rise fast enough to develop a good bright-sounding "click" to be usable.</p>
+    <p>The first stage is used to create the initial energy for the note to play—this should be a short blip impulse of up to 50 ms in length. The peak voltage of this spike dictates the loudness of the note. A single impulse or a short noise burst contains energy in all frequencies, just like white noise. The impulse needs to rise fast enough to develop a good bright-sounding “click” to be usable.</p>
 
-    <p>The second stage controls the timbre of the note to be struck. We found that using bandpass and lowpass filters works well for this purpose. A bandpass filter will only allow through the partials of the resonator that it "lines up in frequency" with — that means, if we filter out everything except the frequencies between 400 and 600 Hz, then in the Analog Waveguide only the partials between 400 and 600 Hz will resonate, even if the fundamental is 100 Hz.</p>
+    <p>The second stage controls the timbre of the note to be struck. We found that using bandpass and lowpass filters works well for this purpose. A bandpass filter will only allow through the partials of the resonator that it “lines up in frequency” with—that means, if we filter out everything except the frequencies between 400 and 600 Hz, then in the Analog Waveguide only the partials between 400 and 600 Hz will resonate, even if the fundamental is 100 Hz.</p>
 
     <p>For the impulse stage you can use:</p>
     <ul>
@@ -907,7 +907,7 @@ a:focus-visible, button:focus-visible{
 
     <p>The comb filter's feedback (Delayline X) deepens the effect of partials emerging from the pluck position. Note that this feedback should not resonate longer than the actual string in Delayline Y, though.</p>
 
-    <p>It helps to add a little bit of damping — this can be achieved using the low pass filter in Delayline Y. Also, you will get a more convincing string sound when using a high pass filter on the click (or noise burst) signal before it enters the comb filter. For the high pass you will need an additional module that is not shown above.</p>
+    <p>It helps to add a little bit of damping—this can be achieved using the low pass filter in Delayline Y. Also, you will get a more convincing string sound when using a high pass filter on the click (or noise burst) signal before it enters the comb filter. For the high pass you will need an additional module that is not shown above.</p>
 
     <div class="box tip">
       <div class="box-title">Tip</div>
@@ -922,17 +922,17 @@ a:focus-visible, button:focus-visible{
       <figcaption><span class="fignum">Fig. 4.3</span> — Trumpet/Brass patch.</figcaption>
     </figure>
 
-    <p>A natural trumpet is a trumpet without valves that can only play natural harmonics, i.e. the eigenmodes of its resonator. When playing the trumpet, the player excites exactly one harmonic (eigenmode) of the bore using lip pressure. By exciting different harmonics of the natural series, it is possible to play all notes of the twelve-tone scale at higher harmonics. The lower harmonics are too widely spaced (octave, fifth, ...) — only from the 8th overtone are tone steps possible. So to play a scale, the resonator needs to be roughly three octaves lower.</p>
+    <p>A natural trumpet is a trumpet without valves that can only play natural harmonics, i.e. the eigenmodes of its resonator. When playing the trumpet, the player excites exactly one harmonic (eigenmode) of the bore using lip pressure. By exciting different harmonics of the natural series, it is possible to play all notes of the twelve-tone scale at higher harmonics. The lower harmonics are too widely spaced (octave, fifth, ...)—only from the 8th overtone are tone steps possible. So to play a scale, the resonator needs to be roughly three octaves lower.</p>
 
-    <p>In our case, we use a single delay line as the bore, with a resonant filter patched into its feedback loop through the send/return connectors to excite the harmonics. Sweeping the resonant filter's cutoff steps through the harmonics of the delay line. If you want to play exact notes, use a 1V/Oct tracking filter with a quantized pitch source. To imitate the swell of the note, we use an ADSR that plugs into the delay's VCA, aka Feedback CV. The feedback path through the filter will only activate when the ADSR is triggered. The filter takes care of "choosing" the harmonic from the delay's eigenmodes. We set both invert switches to 0 and the rotation knob to 0°, so we get the natural harmonic series, just like a natural trumpet.</p>
+    <p>In our case, we use a single delay line as the bore, with a resonant filter patched into its feedback loop through the send/return connectors to excite the harmonics. Sweeping the resonant filter's cutoff steps through the harmonics of the delay line. If you want to play exact notes, use a 1V/Oct tracking filter with a quantized pitch source. To imitate the swell of the note, we use an ADSR that plugs into the delay's VCA, aka Feedback CV. The feedback path through the filter will only activate when the ADSR is triggered. The filter takes care of “choosing” the harmonic from the delay's eigenmodes. We set both invert switches to 0 and the rotation knob to 0°, so we get the natural harmonic series, just like a natural trumpet.</p>
 
-    <p>In this state, the patch will excite only the self-resonance of the bore (a sine wave) and will rather resemble a flute-like instrument. We are still missing an important part of the sound character of a trumpet: the non-linear mixing of pressure waves at the mouthpiece. In a real trumpet, the movement and airflow from the player's lips interferes with the reflected waves from the bore. This interference can be approximated by self-modulating the amplitude of the pressure wave modeled by channel X. To achieve this we can use the Rotation CV attenuverter knob — turning it away from center allows the outgoing wave from Delayline X to modulate itself (the rotation operation in a single delay can also be seen as a type of amplitude modulation with a sine wave). Now we get a typical brassy sound character.</p>
+    <p>In this state, the patch will excite only the self-resonance of the bore (a sine wave) and will rather resemble a flute-like instrument. We are still missing an important part of the sound character of a trumpet: the non-linear mixing of pressure waves at the mouthpiece. In a real trumpet, the movement and airflow from the player's lips interferes with the reflected waves from the bore. This interference can be approximated by self-modulating the amplitude of the pressure wave modeled by channel X. To achieve this we can use the Rotation CV attenuverter knob—turning it away from center allows the outgoing wave from Delayline X to modulate itself (the rotation operation in a single delay can also be seen as a type of amplitude modulation with a sine wave). Now we get a typical brassy sound character.</p>
 
-    <p>We do not really need the second delay line for this patch, but we can use it to our advantage to make the sound richer. We tune it either exactly or slightly off from Delay X and adjust the feedback to our liking — detuning it will make the sound richer.</p>
+    <p>We do not really need the second delay line for this patch, but we can use it to our advantage to make the sound richer. We tune it either exactly or slightly off from Delay X and adjust the feedback to our liking—detuning it will make the sound richer.</p>
 
     <p>Another neat trick is to use an LFO to add some vibrato to one or both delay lines. Patch an LFO running at ≈7 Hz into the channel X FM CV input, switch the modulation curve to exponential, and turn the FM CV attenuverter knob just a few degrees off center to get a vibrato. This will result in more phase mismatches when we amplitude-modulate, making the sound richer. Note that the Y channel FM CV is normalled to that of the X channel, meaning you can use the other Y channel FM CV attenuverter to add vibrato to the second delay line as well.</p>
 
-    <p>Instead of using a triggered envelope, it can be more interesting to play the trumpet with an expressive controller that generates the envelope with a pressure signal — such as the Doepfer Trautonium/Ribbon Controller, Haken Continuum, a keyboard with aftertouch, or a breath controller. Just plug the pressure signal/aftertouch directly into the channel X Feedback CV input instead of the ADSR envelope.</p>
+    <p>Instead of using a triggered envelope, it can be more interesting to play the trumpet with an expressive controller that generates the envelope with a pressure signal—such as the Doepfer Trautonium/Ribbon Controller, Haken Continuum, a keyboard with aftertouch, or a breath controller. Just plug the pressure signal/aftertouch directly into the channel X Feedback CV input instead of the ADSR envelope.</p>
   </section>
 
   <section class="sub" id="handpan">
@@ -944,7 +944,7 @@ a:focus-visible, button:focus-visible{
 
     <p>The Analog Waveguide can produce sounds similar to those of a handpan (Hang), or steel drum. If you adjust the dials correctly, you can produce shimmering harmonics and overtone melodies that give the impression of hearing the instrument being played by hand. The parameters of the Analog Waveguide itself are relatively easy to dial in:</p>
     <ul>
-      <li>About 180° rotation — you can experiment between 135°–225°.</li>
+      <li>About 180° rotation—you can experiment between 135°–225°.</li>
       <li>Rotation CV slightly dialed in, ≈1–2 o'clock.</li>
       <li>Pitch link off.</li>
       <li>Different pitch settings between 200 Hz – 400 Hz on both channels.</li>
@@ -956,7 +956,7 @@ a:focus-visible, button:focus-visible{
 
     <p>Modulating the center frequency of the other bandpass filter using a sample-and-hold signal synchronized to the LFO creates different overtones, similar to playing different notes on a handpan. Increasing the Waveguide's Rotation CV attenuverter knob produces a stronger non-linear response in the sound. Combined with adding slightly more resonance (Q) on the excitation signal's bandpass filters, this results in a sound similar to that of a steel drum.</p>
 
-    <p>In the patch above we use the “RANDOM” module to generate a trigger and a sample and hold on each step. The pink noise comes from the "NOIS" module.</p>
+    <p>In the patch above we use the “RANDOM” module to generate a trigger and a sample and hold on each step. The pink noise comes from the “NOIS” module.</p>
   </section>
 
   <section class="sub" id="unfolded-string">
@@ -971,11 +971,11 @@ a:focus-visible, button:focus-visible{
     <p>We can make a model of a string that represents physical reality a bit more closely by using two delay lines instead of just one.</p>
 
     <figure class="wide">
-      <img src="assets/img/JOS_unfolded_string.png" alt="Diagram of the unfolded string model, showing right-moving and left-moving delay lines with sign inversion at each end.">
-      <figcaption><span class="fignum">Fig. 4.6</span> — Diagram of an "unfolded" string. Source: <a href="https://ccrma.stanford.edu/~jos/pasp/Computational_Savings.html">Smith, <em>Physical Audio Signal Processing</em></a>.</figcaption>
+      <img src="assets/img/JOS_unfolded_string.png” alt="Diagram of the unfolded string model, showing right-moving and left-moving delay lines with sign inversion at each end.">
+      <figcaption><span class="fignum">Fig. 4.6</span> — Diagram of an “unfolded" string. Source: <a href="https://ccrma.stanford.edu/~jos/pasp/Computational_Savings.html">Smith, <em>Physical Audio Signal Processing</em></a>.</figcaption>
     </figure>
 
-    <p>When a physical string on an instrument is plucked, two waves of vibration run through the string in opposite directions, emanating from the pluck position — call them the left- and right-moving waves. They reflect at the bridge and nut of the instrument and continue to travel in opposite directions, crossing each other once every period without interference until the sound dies out. We can model this process using one delay per wave direction. As illustrated above, the upper delay line carries the right-moving wave, the lower delay carries the left-moving wave. When changing directions, the waves reflect with an inversion — hence the multiplication by −1 at each end of the string.</p>
+    <p>When a physical string on an instrument is plucked, two waves of vibration run through the string in opposite directions, emanating from the pluck position—call them the left- and right-moving waves. They reflect at the bridge and nut of the instrument and continue to travel in opposite directions, crossing each other once every period without interference until the sound dies out. We can model this process using one delay per wave direction. As illustrated above, the upper delay line carries the right-moving wave, the lower delay carries the left-moving wave. When changing directions, the waves reflect with an inversion — hence the multiplication by −1 at each end of the string.</p>
 
     <p>To model this with the Analog Waveguide, we need to feed both delay lines into each other with a sign inversion before entering each delay. Achieving this requires some consideration of how to configure the Analog Waveguide so as to give us two inversions and feed the delay lines into each other in a big loop.</p>
 
@@ -1000,11 +1000,11 @@ a:focus-visible, button:focus-visible{
       $$y' = -x_d$$
     </div>
 
-    <p>Here the aforementioned waves traveling in either direction of the string are modeled using the X and Y channels — combined they constitute the waveguide string model. Our modified rotation scattering junction behaves like an inverting reflection at the nut and bridge of a string instrument.</p>
+    <p>Here the aforementioned waves traveling in either direction of the string are modeled using the X and Y channels—combined they constitute the waveguide string model. Our modified rotation scattering junction behaves like an inverting reflection at the nut and bridge of a string instrument.</p>
 
-    <p>It is not necessary to patch the output of one delay into the other, since it is already routed (mixed) internally via the rotation core. The outputs of the two delay lines must be mixed together into one mono signal for the moving-wave modeling to be effective — listened to independently, the two channels would model the right and left vibrations moving separately, which is physically impossible.</p>
+    <p>It is not necessary to patch the output of one delay into the other, since it is already routed (mixed) internally via the rotation core. The outputs of the two delay lines must be mixed together into one mono signal for the moving-wave modeling to be effective—listened to independently, the two channels would model the right and left vibrations moving separately, which is physically impossible.</p>
 
-    <p>If you add a delay on the input of one of the two delay lines, you can once again simulate a changing pluck position: this is directly analogous to the physical string — if you change the plucking position, the left- and right-going waves arrive at different times at the nut and bridge.</p>
+    <p>If you add a delay on the input of one of the two delay lines, you can once again simulate a changing pluck position: this is directly analogous to the physical string—if you change the plucking position, the left- and right-going waves arrive at different times at the nut and bridge.</p>
 
     <p>With this model you can also implement different reflection (impedance) behaviors on the bridge vs. the nut. You can access the bridge and nut via the Send and Return jacks on each delay line.</p>
   </section>
@@ -1027,7 +1027,7 @@ a:focus-visible, button:focus-visible{
       <li>To enter the settings menu, press the factory settings button on the right side of the module, next to the USB-C port, see figure below.</li>
       <li>To select a menu entry use the Rotation knob.</li>
       <li>To enter a submenu or edit a parameter, push the factory settings button.</li>
-      <li>To exit or go back to the previous menu, scroll to the "Go back" menu entry and push the button.</li>
+      <li>To exit or go back to the previous menu, scroll to the “Go back” menu entry and push the button.</li>
     </ul>
   </div>
 
@@ -1049,7 +1049,7 @@ a:focus-visible, button:focus-visible{
     </ul>
   </div>
 
-  <p>To enter the setting menu, navigate to the "Settings" entry and press the factory settings button.</p>
+  <p>To enter the setting menu, navigate to the “Settings” entry and press the factory settings button.</p>
 
   <section class="sub" id="settings">
     <h2>5.1 &nbsp; Settings</h2>
@@ -1060,7 +1060,7 @@ a:focus-visible, button:focus-visible{
       <p>This menu allows you to set the timer for the screen saver and the brightness of the display.</p>
       <dl class="settings">
         <div><dt>Display Brightness</dt><dd>Adjusts the screen brightness in steps of 1%. In case you encounter noise issues related to the display, try setting this value to 100%. This will deactivate the display dimming that is based on high frequency switching of the back light.</dd></div>
-        <div><dt>Screen Saver</dt><dd>Sets the timer for the screen saver between 5 s to 2 h, or "off".</dd></div>
+        <div><dt>Screen Saver</dt><dd>Sets the timer for the screen saver between 5 s to 2 h, or “off”.</dd></div>
       </dl>
     </section>
 
@@ -1193,10 +1193,10 @@ a:focus-visible, button:focus-visible{
         <ol>
           <li>Press the factory settings button.</li>
           <li>Use the Rotation knob to navigate to the <span class="menupath">Calibration → Trim XY decay boost</span> menu entry and press the factory settings button to enter.</li>
-          <li>With a small Phillips screwdriver, turn the "Decay Boost X" trimmer CCW until you hear a feedback tone on the left speaker and you see the RMS loudness bar graph showing a signal.</li>
+          <li>With a small Phillips screwdriver, turn the “Decay Boost X” trimmer CCW until you hear a feedback tone on the left speaker and you see the RMS loudness bar graph showing a signal.</li>
           <li>Carefully adjust the trimmer such that the top of the bar graph resides in the green back lit area.</li>
           <li>The RMS signal power should be between −3 dB and −9 dB. The ideal target being at −6 dB.</li>
-          <li>Press the factory settings button again and repeat the process for the "Decay Boost Y" trimmer.</li>
+          <li>Press the factory settings button again and repeat the process for the “Decay Boost Y” trimmer.</li>
           <li>When the RMS value is good, press the factory settings button to return to the menu.</li>
         </ol>
       </div>
@@ -1296,7 +1296,7 @@ a:focus-visible, button:focus-visible{
       <ol>
         <li>Press the factory settings button.</li>
         <li>Rotation knob to navigate to the <span class="menupath">Calibration → Edit calibration data</span> menu entry and press the factory settings button to enter.</li>
-        <li>In this menu, navigate to the "Re-initialize" entry.</li>
+        <li>In this menu, navigate to the “Re-initialize” entry.</li>
         <li>To confirm, press the factory settings button.</li>
         <li>The scale values should now be reset to +0.45 and the offset values to 0.0.</li>
       </ol>
@@ -1318,7 +1318,7 @@ a:focus-visible, button:focus-visible{
 
   <section class="sub" id="firmware-version">
     <h2>7.1 &nbsp; Firmware Version</h2>
-    <p>You can check which firmware you are using by pressing the factory settings button on the right side of the bottom board, next to the USB-C port. The menu entry "Show firmware version" shows the currently installed firmware version along with the build date. If your firmware version is lower than v.+fwv+, please update. See the Firmware Version History chapter for a changelog of the firmware versions. To update, download the firmware from our website <a href="https://discourse.chair.audio">discourse.chair.audio</a>, unzip the archive, and follow the procedure listed in the next section.</p>
+    <p>You can check which firmware you are using by pressing the factory settings button on the right side of the bottom board, next to the USB-C port. The menu entry “Show firmware version” shows the currently installed firmware version along with the build date. If your firmware version is lower than v.+fwv+, please update. See the Firmware Version History chapter for a changelog of the firmware versions. To update, download the firmware from our website <a href="https://discourse.chair.audio">discourse.chair.audio</a>, unzip the archive, and follow the procedure listed in the next section.</p>
   </section>
 
   <section class="sub" id="firmware-update-methods">
@@ -1329,14 +1329,14 @@ a:focus-visible, button:focus-visible{
       <p>The easiest and preferred way to update the Analog Waveguide is by using our WebUSB updater. It only requires a Chromium web browser to run. Head to <a href="https://chairaudio.github.io/CHAIR-browser-dfu/">chairaudio.github.io/CHAIR-browser-dfu</a> using Google Chrome, Microsoft Edge, Brave, Opera, or any other Chromium-based browser.<sup class="fnref" id="fnref-10"><a href="#fn-10">10</a></sup> Follow the instructions you find on the website above.</p>
     </section>
 
-    <section class="subsub" id="cube-programmer">
+    <section class="subsub" "id="cube-programmer">
       <h3>Using STM32 Cube Programmer</h3>
-      <p>Alternatively, you may also use the STM Cube Programmer<sup class="fnref" id="fnref-11"><a href="#fn-11">11</a></sup> to update the firmware. You can download the software without registering for an account on STM by clicking on "Download as a guest" when asked to log in or register.</p>
+      <p>Alternatively, you may also use the STM Cube Programmer<sup class="fnref” id="fnref-11"><a href="#fn-11">11</a></sup> to update the firmware. You can download the software without registering for an account on STM by clicking on “Download as a guest” when asked to log in or register.</p>
 
       <div class="stepblocks">
         <ol>
           <li>Press the factory settings button momentarily.</li>
-          <li>Use the Rotation knob to navigate to the "Firmware update mode" menu entry and press the factory settings button to enter.</li>
+          <li>Use the Rotation knob to navigate to the “Firmware update mode” menu entry and press the factory settings button to enter.</li>
           <li>Press and hold the firmware update button for two seconds to put the module into firmware update mode.</li>
           <li>You are now in firmware update mode. The module will stay unresponsive until the update is complete.</li>
           <li>Connect the Analog Waveguide to your computer with a USB-C data cable.</li>
@@ -1346,28 +1346,28 @@ a:focus-visible, button:focus-visible{
 
       <figure class="wide">
         <img src="assets/img/select_USB.jpg" alt="STM32CubeProgrammer: select USB from the connection type dropdown.">
-        <figcaption><span class="fignum">Fig. 7.1</span> — Select "USB".</figcaption>
+        <figcaption><span class="fignum">Fig. 7.1</span> — Select “USB”.</figcaption>
       </figure>
 
       <figure class="wide">
         <img src="assets/img/click_refresh.jpg" alt="STM32CubeProgrammer: click the reload icon, choose the device by PID/VID, then click Connect.">
-        <figcaption><span class="fignum">Fig. 7.2</span> — Click the "reload" icon, choose the device with PID: <code>0xDF11</code> and VID: <code>0x0483</code>, then click "Connect".</figcaption>
+        <figcaption><span class="fignum">Fig. 7.2</span> — Click the “reload” icon, choose the device with PID: <code>0xDF11</code> and VID: <code>0x0483</code>, then click “Connect”.</figcaption>
       </figure>
 
       <figure class="wide">
         <img src="assets/img/click_open_file.jpg" alt="STM32CubeProgrammer: click the Open file tab and choose the firmware file.">
-        <figcaption><span class="fignum">Fig. 7.3</span> — Click the "Open file" tab and choose the new firmware file from your file system.</figcaption>
+        <figcaption><span class="fignum">Fig. 7.3</span> — Click the “Open file” tab and choose the new firmware file from your file system.</figcaption>
       </figure>
 
       <figure class="wide">
         <img src="assets/img/press_download.jpg" alt="STM32CubeProgrammer: click the Download button.">
-        <figcaption><span class="fignum">Fig. 7.4</span> — Click the "Download" button.</figcaption>
+        <figcaption><span class="fignum">Fig. 7.4</span> — Click the “Download” button.</figcaption>
       </figure>
 
       <div class="stepblocks">
         <ol start="7">
-          <li>Click the "Open file" tab and choose the new firmware file from your file system.</li>
-          <li>Click the "Download" button.</li>
+          <li>Click the “Open file” tab and choose the new firmware file from your file system.</li>
+          <li>Click the “Download” button.</li>
           <li>The download process will start now, wait for it to finish.</li>
           <li>Unfortunately the device doesn't reboot automatically and there is no option to do so from the programmer, so you will need to manually switch the Analog Waveguide's power source off and on again.</li>
         </ol>
@@ -1380,7 +1380,7 @@ a:focus-visible, button:focus-visible{
       <p>Lastly, the most basic method for a firmware update is the command line tool dfu-util.<sup class="fnref" id="fnref-12"><a href="#fn-12">12</a></sup> To update via command line follow these steps:</p>
       <ol>
         <li>Press the factory settings button momentarily.</li>
-        <li>Use the Rotation knob to navigate to the "Firmware update mode" menu entry and press the factory settings button to enter.</li>
+        <li>Use the Rotation knob to navigate to the “Firmware update mode” menu entry and press the factory settings button to enter.</li>
         <li>Press and hold the firmware update button for two seconds to put the module in firmware update mode.</li>
         <li>You are now in firmware update mode. The module will stay unresponsive until the update is complete.</li>
         <li>Connect the Analog Waveguide to your computer with a USB-C data cable.</li>
@@ -1399,7 +1399,7 @@ a:focus-visible, button:focus-visible{
 
     <section class="subsub" id="calibration-lost">
       <h3>Calibration Data is lost</h3>
-      <p>In some rare and unusual cases it may be possible for the calibration data stored in the Analog Waveguide's memory to be overwritten. For example, when the option "full erase" in the STM Cube Programmer is set. In this case, you need to re-calibrate your Analog Waveguide. Follow the steps from <a href="#auto-calibration">Auto-calibration</a>.</p>
+      <p>In some rare and unusual cases it may be possible for the calibration data stored in the Analog Waveguide's memory to be overwritten. For example, when the option “full erase” in the STM Cube Programmer is set. In this case, you need to re-calibrate your Analog Waveguide. Follow the steps from <a href="#auto-calibration">Auto-calibration</a>.</p>
     </section>
 
     <section class="subsub" id="fw-update-mode-trouble">
@@ -1443,7 +1443,7 @@ a:focus-visible, button:focus-visible{
     <div><dt>1.3.0</dt><dd>Temperature compensation for the feedback amount using the internal temperature sensor of the STM32 as a reference. This stabilizes the feedback knob while your rack heats up. Bug fixes.</dd></div>
     <div><dt>1.2.3</dt><dd>Digitally controlled analog limiter with soft knee on internal feedback path minimizes input and feedback distortion. Limiter parameters settable in the menu. More flexible menu parameter editing and rendering. Use only Rotation knob + push button in menu. MPU/RAM optimizations allowing for slightly bigger vertical waveform image size and higher rotation CV sample rate (81.92 kHz). Higher waveform resolution thanks to higher internal sample rate. Fixes flickering peak indicators. Mute when entering menu. Screen saver with settings. Display brightness with settings. New higher order digital filters on digital interface elements resulting in lower noise on all knobs, most noticeable on rotation CV attenuverter. Lower noise and lower latency on pitch and FM CV inputs. Fixes zipper noise on rotation control knob.</dd></div>
     <div><dt>1.0.5</dt><dd>Long press (to enter firmware update mode) is now a little bit less long (2 instead of 3 seconds).</dd></div>
-    <div><dt>1.0.4</dt><dd>Corrects endless potentiometer rotation direction and waveform display (y-axis was inverted on display, 360 degree potentiometer rotation direction was reversed — these two bugs almost canceled each other out and therefore remained undetected).</dd></div>
+    <div><dt>1.0.4</dt><dd>Corrects endless potentiometer rotation direction and waveform display (y-axis was inverted on display, 360 degree potentiometer rotation direction was reversed—these two bugs almost canceled each other out and therefore remained undetected).</dd></div>
     <div><dt>1.0.2</dt><dd>Accelerated display. Made button press more robust. Reordered menu items to reflect recommended order for calibration. Firmware update (bootloader) mode now accessible through menu.</dd></div>
     <div><dt>1.0.0</dt><dd>Initial release.</dd></div>
   </dl>
@@ -1480,7 +1480,7 @@ a:focus-visible, button:focus-visible{
     <li id="fn-4">The Greek lower case letter Theta, commonly used to denote an angle. <a class="back" href="#fnref-4">↩</a></li>
     <li id="fn-5">Pseudo-physical models are not aiming to model an existing acoustic instrument or physical object with complete accuracy, but rather explore the sonic possibilities that physical modeling techniques open up, without a real-world equivalent necessarily existing. <a class="back" href="#fnref-5">↩</a></li>
     <li id="fn-6">Bucket Brigade Delay, a chip technology used for the analog delay lines at the heart of the Analog Waveguide. <a class="back" href="#fnref-6">↩</a></li>
-    <li id="fn-7">Corrects endless potentiometer rotation direction — see the firmware version history for details on relevant fixes. An endless potentiometer has no minimum or maximum position and can be turned indefinitely in either direction. <a class="back" href="#fnref-7">↩</a></li>
+    <li id="fn-7">Corrects endless potentiometer rotation direction—see the firmware version history for details on relevant fixes. An endless potentiometer has no minimum or maximum position and can be turned indefinitely in either direction. <a class="back" href="#fnref-7">↩</a></li>
     <li id="fn-8">The illustration of this patch was made with a dummy Analog Waveguide module for VCV Rack, a modular synthesizer simulator, for illustrative purposes only. <a class="back" href="#fnref-8">↩</a></li>
     <li id="fn-9">In VCV Rack: Twin Peaks. <a class="back" href="#fnref-9">↩</a></li>
     <li id="fn-10">Mozilla Firefox and Safari are not based on Chromium and thus not supported. <a class="back" href="#fnref-10">↩</a></li>
