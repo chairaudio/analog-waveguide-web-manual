@@ -594,7 +594,7 @@ a:focus-visible, button:focus-visible{
       <figcaption><span class="fignum">Fig. 1.2</span> — Analog Waveguide display with quadrants and axes.</figcaption>
     </figure>
 
-    <p>The Analog Waveguide has the right (Y) channel pre-patched to the left (X) channel internally,<sup class="fnref” id="fnref-3"><a href="#fn-3">3</a></sup> so if you have nothing plugged into the right input, the left input is used on both channels. If you intentionally want the right input to be mute you can put a dangling cable into the right input or simply turn the gain knob all the way down.</p>
+    <p>TThe Analog Waveguide has the right channel (the Y axis) normalled to the left channel (X) internally,<sup class="fnref” id="fnref-3"><a href="#fn-3">3</a></sup> so if you have nothing plugged into the right input, the left input is used on both channels. If you intentionally want the right input to be mute you can put a dangling cable into the right input or simply turn the gain knob all the way down.</p>
 
     <p>Each side of the Analog Waveguide—X and Y—is a <em>feedback-delay network</em>. The input signal is fed into a delay, a low-pass filter, and then back into the delay with some attenuation.</p>
 
@@ -848,7 +848,7 @@ a:focus-visible, button:focus-visible{
 
     <p>The first stage is used to create the initial energy for the note to play—this should be a short blip impulse of up to 50 ms in length. The peak voltage of this spike dictates the loudness of the note. A single impulse or a short noise burst contains energy in all frequencies, just like white noise. The impulse needs to rise fast enough to develop a good bright-sounding “click” to be usable.</p>
 
-    <p>The second stage controls the timbre of the note to be struck. We found that using bandpass and lowpass filters works well for this purpose. A bandpass filter will only allow through the partials of the resonator that it “lines up in frequency” with—that means, if we filter out everything except the frequencies between 400 and 600 Hz, then in the Analog Waveguide only the partials between 400 and 600 Hz will resonate, even if the fundamental is 100 Hz.</p>
+    <p>The second stage controls the timbre of the note to be struck. We found that using bandpass and lowpass filters works well for this purpose. A bandpass filter will only allow through the partials of the resonator that it “lines up in frequency” with. That means, if we filter out everything except the frequencies between 400 and 600 Hz, then in the Analog Waveguide only the partials between 400 and 600 Hz will resonate, even if the fundamental is 100 Hz.</p>
 
     <p>For the impulse stage you can use:</p>
     <ul>
@@ -929,7 +929,7 @@ a:focus-visible, button:focus-visible{
 
     <p>In this state, the patch will excite only the self-resonance of the bore (a sine wave) and will rather resemble a flute-like instrument. We are still missing an important part of the sound character of a trumpet: the non-linear mixing of pressure waves at the mouthpiece. In a real trumpet, the movement and airflow from the player's lips interferes with the reflected waves from the bore. This interference can be approximated by self-modulating the amplitude of the pressure wave modeled by channel X. To achieve this we can use the Rotation CV attenuverter knob—turning it away from center allows the outgoing wave from Delayline X to modulate itself (the rotation operation in a single delay can also be seen as a type of amplitude modulation with a sine wave). Now we get a typical brassy sound character.</p>
 
-    <p>We do not really need the second delay line for this patch, but we can use it to our advantage to make the sound richer. We tune it either exactly or slightly off from Delay X and adjust the feedback to our liking—detuning it will make the sound richer.</p>
+    <p>We do not really need the second delay line for this patch, but we can use it to our advantage to make the sound richer. We tune it either exactly or slightly off from Delay X and adjust the feedback to our liking. Detuning it will make the sound richer.</p>
 
     <p>Another neat trick is to use an LFO to add some vibrato to one or both delay lines. Patch an LFO running at ≈7 Hz into the channel X FM CV input, switch the modulation curve to exponential, and turn the FM CV attenuverter knob just a few degrees off center to get a vibrato. This will result in more phase mismatches when we amplitude-modulate, making the sound richer. Note that the Y channel FM CV is normalled to that of the X channel, meaning you can use the other Y channel FM CV attenuverter to add vibrato to the second delay line as well.</p>
 
@@ -1444,7 +1444,7 @@ a:focus-visible, button:focus-visible{
     <div><dt>1.3.0</dt><dd>Temperature compensation for the feedback amount using the internal temperature sensor of the STM32 as a reference. This stabilizes the feedback knob while your rack heats up. Bug fixes.</dd></div>
     <div><dt>1.2.3</dt><dd>Digitally controlled analog limiter with soft knee on internal feedback path minimizes input and feedback distortion. Limiter parameters settable in the menu. More flexible menu parameter editing and rendering. Use only Rotation knob + push button in menu. MPU/RAM optimizations allowing for slightly bigger vertical waveform image size and higher rotation CV sample rate (81.92 kHz). Higher waveform resolution thanks to higher internal sample rate. Fixes flickering peak indicators. Mute when entering menu. Screen saver with settings. Display brightness with settings. New higher order digital filters on digital interface elements resulting in lower noise on all knobs, most noticeable on rotation CV attenuverter. Lower noise and lower latency on pitch and FM CV inputs. Fixes zipper noise on rotation control knob.</dd></div>
     <div><dt>1.0.5</dt><dd>Long press (to enter firmware update mode) is now a little bit less long (2 instead of 3 seconds).</dd></div>
-    <div><dt>1.0.4</dt><dd>Corrects endless potentiometer rotation direction and waveform display (y-axis was inverted on display, 360 degree potentiometer rotation direction was reversed—these two bugs almost canceled each other out and therefore remained undetected).</dd></div>
+    <div><dt>1.0.4</dt><dd>Corrects endless potentiometer rotation direction and waveform display (y-axis was inverted on display, 360 degree potentiometer rotation direction was reversed. These two bugs almost canceled each other out and therefore remained undetected).</dd></div>
     <div><dt>1.0.2</dt><dd>Accelerated display. Made button press more robust. Reordered menu items to reflect recommended order for calibration. Firmware update (bootloader) mode now accessible through menu.</dd></div>
     <div><dt>1.0.0</dt><dd>Initial release.</dd></div>
   </dl>
@@ -1475,15 +1475,16 @@ a:focus-visible, button:focus-visible{
 
   <h2 id="notes" style="font-size:1.35rem; border-bottom:2px solid var(--ink); padding-bottom:.5rem; margin-top:2.6rem;">Notes</h2>
   <ol class="notes-list">
-    <li id="fn-1">Typically the view is rotated 45° on such a device, so that a mono (in-phase) signal appears as a vertical line, rather than diagonal. We chose to not rotate our display, so that the quadrants of the coordinate system directly correspond to the sign of the X and Y signals. <a class="back" href="#fnref-1">↩</a></li>
-    <li id="fn-2">Mixed to mono, this signal would be silence, as the left and right channel would cancel each other out completely. <a class="back" href="#fnref-2">↩</a></li>
-    <li id="fn-3">An in-built connection that is broken as soon as a cable is inserted into the corresponding input. <a class="back" href="#fnref-3">↩</a></li>
-    <li id="fn-4">The Greek lower case letter Theta, commonly used to denote an angle. <a class="back" href="#fnref-4">↩</a></li>
-    <li id="fn-5">Pseudo-physical models are not aiming to model an existing acoustic instrument or physical object with complete accuracy, but rather explore the sonic possibilities that physical modeling techniques open up, without a real-world equivalent necessarily existing. <a class="back" href="#fnref-5">↩</a></li>
-    <li id="fn-6">Bucket Brigade Delay, a chip technology used for the analog delay lines at the heart of the Analog Waveguide. <a class="back" href="#fnref-6">↩</a></li>
-    <li id="fn-7">Corrects endless potentiometer rotation direction—see the firmware version history for details on relevant fixes. An endless potentiometer has no minimum or maximum position and can be turned indefinitely in either direction. <a class="back" href="#fnref-7">↩</a></li>
-    <li id="fn-8">The illustration of this patch was made with a dummy Analog Waveguide module for VCV Rack, a modular synthesizer simulator, for illustrative purposes only. <a class="back" href="#fnref-8">↩</a></li>
-    <li id="fn-9">In VCV Rack: Twin Peaks. <a class="back" href="#fnref-9">↩</a></li>
+    <li id="fn-1">Typically the view is rotated 45° in those analyzers compared to the Analog Waveguide's display so that left and right channels are the diagonals, a vertical image is produced by a mono signal and a horizontal image means phase cancellation. They are also called audio goniometers.<a class="back" href="#fnref-1">↩</a></li>
+    <li id="fn-2">Mixed to mono this signal would be silence; very inconvenient for listeners on the kitchen radio. Hence the importance of the stereo phase analyzer in broadcasting.<a class="back" href="#fnref-2">↩</a></li>
+    <li id="fn-3">A normalled connection is an in-built connection “behind the front panel” that is broken as soon as a cable is inserted into the corresponding input. We will continue to use this term later in document.<a class="back" href="#fnref-3">↩</a></li>
+    <li id="fn-4">The Greek lower case letter Theta, commonly used to denote an angle.<a class="back" href="#fnref-4">↩</a></li>
+    <li id="fn-5">Pseudo-physical models are not aiming to model an existing acoustic instrument or physical object with complete accuracy, but rather explore the sonic possibilities that physical modeling techniques open up, without a real-world equivalent necessarily existing.<a class="back" href="#fnref-5">↩</a></li>
+    <li id="fn-6">Bucket Brigade Delay, a chip with a series of capacitors-transistor pairs (stages), where a signal can be moved through driven by the speed of a clock. The faster the clock, the higher is the pitch. The two BBDs in the Analog Waveguide have 1024 stages each.<a class="back" href="#fnref-6">↩</a></li>
+    <li id="fn-7">Endless potentiometers are somewhat exotic devices but are more robust and tend to have a longer lifespan while providing continuous analog values compared to digital encoders which have a limited lifespan and can only offer discrete steps. <a class="back" href="#fnref-7">↩</a></li>
+    <li id="fn-8">The illustration of this patch was made with a dummy Analog Waveguide module for VCV Rack without any DSP in it. There is currently no functional Analog Waveguide module for
+	VCV Rack.<a class="back" href="#fnref-8">↩</a></li>
+    <li id="fn-9">In VCV Rack: Twin Peaks.<a class="back" href="#fnref-9">↩</a></li>
     <li id="fn-10">Mozilla Firefox and Safari are not based on Chromium and thus not supported. <a class="back" href="#fnref-10">↩</a></li>
     <li id="fn-11"><a href="https://www.st.com/en/development-tools/stm32cubeprog.html">st.com/en/development-tools/stm32cubeprog.html</a> <a class="back" href="#fnref-11">↩</a></li>
     <li id="fn-12"><a href="https://dfu-util.sourceforge.net">dfu-util.sourceforge.net</a> <a class="back" href="#fnref-12">↩</a></li>
